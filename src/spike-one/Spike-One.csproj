@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Uk.Co.Itofinity.GeoHistory.SpikeOne</RootNamespace>
+    <AssemblyName>GeoHistory.SpikeOne</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GoogleMaps.LocationServices" Version="1.2.0.5" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.24" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="SharpKml.Core" Version="5.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\geohistory.model\geohistory.model.csproj" />
+  </ItemGroup>
+
+</Project>
