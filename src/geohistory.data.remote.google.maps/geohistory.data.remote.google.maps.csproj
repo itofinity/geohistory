@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Uk.Co.Itofinity.GeoHistory.Data.Remote.Google.Maps</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GoogleMapsApi" Version="0.80.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\geohistory.model\geohistory.model.csproj" />
+  </ItemGroup>
+
+</Project>

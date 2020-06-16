@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Uk.Co.Itofinity.GeoHistory.SpikeOne
+namespace Uk.Co.Itofinity.GeoHistory.Data.Remote.Wikimedia
 {
     public class WikiMediaParse
     {

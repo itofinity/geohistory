@@ -4,9 +4,9 @@ using Uk.Co.Itofinity.Geohistory.Model.People;
 
 namespace Uk.Co.Itofinity.Geohistory.Model.Role.Military
 {
-    public class Brigadier : AbstractMilitaryAppointment
+    public class LieutenantColonel : AbstractMilitaryAppointment
     {
-        public Brigadier(IOrganisation organisation, Person person) : base(organisation, person)
+        public LieutenantColonel(IOrganisation organisation, Person person) : base(organisation, person)
         {
         }
 
@@ -20,7 +20,7 @@ namespace Uk.Co.Itofinity.Geohistory.Model.Role.Military
 
         public override string ToString()
         {
-            return $"{Glossary.Brigadier} {Person}";
+            return $"{Glossary.LieutenantColonel} {Person}";
         }
     }
 }

@@ -10,12 +10,18 @@
   <ItemGroup>
     <PackageReference Include="GoogleMaps.LocationServices" Version="1.2.0.5" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.24" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="5.0.0-preview.5.20278.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="SharpKml.Core" Version="5.1.1" />
+    <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.20303.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\geohistory.data.remote.google.maps\geohistory.data.remote.google.maps.csproj" />
+    <ProjectReference Include="..\geohistory.data.remote.wikimedia\geohistory.data.remote.wikimedia.csproj" />
     <ProjectReference Include="..\geohistory.model\geohistory.model.csproj" />
+    <ProjectReference Include="..\geohistory.render.kml\geohistory.render.kml.csproj" />
   </ItemGroup>
 
 </Project>

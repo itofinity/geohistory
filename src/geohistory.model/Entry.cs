@@ -2,6 +2,7 @@
 using Uk.Co.Itofinity.Geohistory.Model.Audit;
 using Uk.Co.Itofinity.Geohistory.Model.Citation;
 using Uk.Co.Itofinity.Geohistory.Model.Location;
+using Uk.Co.Itofinity.Geohistory.Model.People;
 using Uk.Co.Itofinity.Geohistory.Model.Time;
 
 namespace Uk.Co.Itofinity.Geohistory.Model
@@ -14,7 +15,12 @@ namespace Uk.Co.Itofinity.Geohistory.Model
         private const string citation = "citation";
         private const string audit = "audit";
 
-        public Entry(IOrganisation what, ILocation where, ITemporal when, ICitation citation, IAudit audit) : base()
+        public Entry(IEntity what, ICitation citation, IAudit audit) : this(what, null, null, citation, audit)
+        {
+
+        }
+
+        public Entry(IEntity what, ILocation where, IFuzzyDateTimeRange when, ICitation citation, IAudit audit) : base()
         {
             this[Entry.what] = what;
             this[Entry.where] = where;
@@ -23,10 +29,19 @@ namespace Uk.Co.Itofinity.Geohistory.Model
             this[Entry.audit] = audit;
         }
 
-        public IOrganisation What => this[what] as IOrganisation;
+        public IEntity What => this[what] as IEntity;
 
         public ILocation Where => this[where] as ILocation;
 
-        public ITemporal When => this[when] as ITemporal;
+        public IFuzzyDateTimeRange When => this[when] as IFuzzyDateTimeRange;
+
+        public ICitation Citation => this[citation] as ICitation;
+
+        public IAudit Audit => this[audit] as IAudit;
+
+        public override string ToString()
+        {
+            return $"{this.What.ShortName}:{this.Where.ShortName}:{this.When.ShortName}";
+        }
     }
 }

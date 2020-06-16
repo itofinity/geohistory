@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Uk.Co.Itofinity.GeoHistory.SpikeOne
+namespace Uk.Co.Itofinity.GeoHistory.Data.Remote.Wikimedia
 {
     internal class WikiMediaParsedPage
     {

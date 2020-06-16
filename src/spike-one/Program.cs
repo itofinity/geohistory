@@ -7,22 +7,78 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Uk.Co.Itofinity.Geohistory.Model;
-using Uk.Co.Itofinity.Geohistory.Model.Audit;
+using Uk.Co.Itofinity.GeoHistory.Render.Kml;
+using System.CommandLine;
+using System.CommandLine.Invocation;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using Uk.Co.Itofinity.Geohistory.Model.Role.Military;
+using System.Drawing;
 using Uk.Co.Itofinity.Geohistory.Model.Citation;
+using Uk.Co.Itofinity.Geohistory.Model.Audit;
 using Uk.Co.Itofinity.Geohistory.Model.Organisation.Military;
 using Uk.Co.Itofinity.Geohistory.Model.Time;
+using Uk.Co.Itofinity.Geohistory.Model;
+using Uk.Co.Itofinity.Geohistory.Model.People;
+using Uk.Co.Itofinity.Geohistory.Model.Role;
+using Uk.Co.Itofinity.Geohistory.Model.Location;
+using Uk.Co.Itofinity.Geohistory.Model.Organisation;
 
 namespace Uk.Co.Itofinity.GeoHistory.SpikeOne
 {
     class Program
     {
-        static async Task Main(string[] args)
+        private static Dictionary<string, ICitation> citations = new Dictionary<string, ICitation>();
+
+        static async Task<int> Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            // Create a root command with some options
+            var rootCommand = new RootCommand
+            {
+                new Option<string>(
+                    "--apikey",
+                    getDefaultValue: () => "undefined",
+                    description: "the ApiKey to use to interact with the google maps service"),
+                 new Option<string>(
+                    "--output",
+                    getDefaultValue: () => "ringo",
+                    description: "the root filename to use for output"),
+            };
+            rootCommand.Description = "Generate KML!";
+
+            rootCommand.Handler = CommandHandler.Create<string, string>((apikey, output) =>
+            {
+                run(apikey, output);
+            });
+
+            // Parse the incoming args and invoke the handler
+            return rootCommand.InvokeAsync(args).Result;
+
+        }
+
+        private static void run(string apikey, string output)
+        {
+            Console.WriteLine("Generate KML!");
+            List<Entry> entries = SearchDataModel();
+
+            //TODO normalize the data set
+            // e.g. if there is no enddate for an entry take the startdate of the next entry for the same unit etc ....
+            var kmlData = Normalizer.ForRendering(entries, apikey);
+
+            using (var writer = KmlWriter.Create(output + "-" + DateTime.Now.Ticks))
+            {
+                kmlData.ToList().ForEach(async re => await writer.Write(re));
+
+            }
+        }
+
+        private static List<Entry> SearchDataModel()
+        {
+            var entries = new List<Entry>();
 
             var uk = new RegionInfo("en-UK");
             var derby = new Municipality("Derby");
+            var catterick = new Municipality("Catterick");
             var london = new Municipality("London");
             var audit = new SimpleAudit("mminns@itofinity.co.uk");
 
@@ -38,329 +94,180 @@ namespace Uk.Co.Itofinity.GeoHistory.SpikeOne
                 )
             );
 
-            var citation1 = new ApaCitation(new SimplePageRange(1), scrapBook);
+            var mobilisationDate = new FuzzyDateTime(new DateTime(1939, 7, 29), "yyyy/MM/dd");
+            var veDay = new FuzzyDateTime(new DateTime(1945, 5, 8), "yyyy/MM/dd");
 
-            var what = new Regiment("1st Derbyshire Yeomanry", Glossary.Reconnaissance, uk);
-
-            var where1 = new SimplePostalAddress(null, new SimpleStreetAddress(91, "Siddals Road"), derby, new SimpleAdministrativeRegion(), null, uk);
-
-            var when1 = new FuzzyDateRange(new FuzzyDateTime(new DateTime(1939, 7, 29), "yyyy/MM/dd"));
-
-            var citation2 = new ApaCitation(new SimplePageRange(2), scrapBook);
-            var where2 = new SimplePostalAddress(null, new SimpleStreetAddress("Ashbourne Road"), derby, new SimpleAdministrativeRegion(), null, uk);
-            var when2 = new FuzzyDateRange(new FuzzyDateTime(new DateTime(1939, 11, 1), "yyyy/MM"), new FuzzyDateTime(new DateTime(1940, 05, 1), "yyyy/MM"));
+            var armouredCar = new TemporalRole(
+                new Reconnaissance(),
+                new FuzzyDateRange(
+                    mobilisationDate),
+                GetCitationPage(1, scrapBook),
+                audit);
 
 
-            var entries = new List<Entry>{
-                new Entry(what, where1, when1, citation1, audit),
-                new Entry(what, where2, when2, citation2, audit)
-            };
-            await WriteToKml(entries);
 
-        }
+            var firstDerbyshireYeomanry = new Regiment("1st Derbyshire Yeomanry", armouredCar, uk, GetCitationPage(1, scrapBook),
+                audit);
 
-        private static async Task WriteToKml(IEnumerable<Entry> entries)
-        {
-            var document = new Document();
+            var siddalsRoad = new SimplePostalAddress(null, new SimpleStreetAddress(91, "Siddals Road"), derby, null, null, uk, null, null);
+            var siddalsRoadPosting = new TemporalLocation(siddalsRoad, new FuzzyDateRange(mobilisationDate),
+                                    GetCitationPage(1, scrapBook),
+                                    audit);
 
-            // TODO Style/PolyStyle
+            firstDerbyshireYeomanry.AddLocation(siddalsRoadPosting);
 
-            entries.OrderBy(e => e.What.Name).OrderBy(e => e.When.StartDateTime.DateTime);
+            var mccHarrison = new Person("M.C.C", "Harrision", null, uk, GetCitationPage(2, scrapBook),
+                audit);
 
-            entries.ToList().ForEach(async e =>
-            {
-                Placemark placemark = await GetPlaceMark(e);
-                document.AddFeature(placemark);
-            });
+            var commandFirstDerbyshireYeomanryPosting = new TemporalRole(new LieutenantColonel(firstDerbyshireYeomanry, mccHarrison),
+                        new FuzzyDateRange(
+                            new FuzzyDateTime(new DateTime(1939, 11, 7), "yyy/MM"),
+                            new FuzzyDateTime(new DateTime(1941, 4, 1), "yyy/MM")
+                        ),
+                        GetCitationPage(1, scrapBook),
+                        audit);
 
-            // TODO date overlaps
-            // TODO routing
-            // TODO polygon/influence
+            firstDerbyshireYeomanry.AddPersonel(commandFirstDerbyshireYeomanryPosting);
+            mccHarrison.AddAppointment(commandFirstDerbyshireYeomanryPosting);
 
-            Export(document);
-        }
 
-        private static void Export(Document document)
-        {
+
+
+
+
+
+            var ashbourneRoad = new SimplePostalAddress(null, new SimpleStreetAddress("Ashbourne Road"), derby, null, null, uk, null, null);
+            var ashbourneRoadPosting = new TemporalLocation(ashbourneRoad, new FuzzyDateRange(new FuzzyDateTime(new DateTime(1939, 11, 1), "yyyy/MM"), new FuzzyDateTime(new DateTime(1940, 05, 1), "yyyy/MM")),
+                GetCitationPage(2, scrapBook),
+                audit);
+
+            firstDerbyshireYeomanry.AddLocation(ashbourneRoadPosting);
+            mccHarrison.AddLocation(ashbourneRoadPosting);
+
+
+
+
+
+            var cavalryDivison = new TemporalRole(
+                new Cavalry(),
+                new FuzzyDateRange(
+                    mobilisationDate),
+                GetCitationPage(4, scrapBook),
+                audit);
+            var catterickGarrision = new SimplePostalAddress(null, null, catterick, null, null, uk, null, null);
+            var catterickGarrisionPosting = new TemporalLocation(catterickGarrision, new FuzzyDateRange(mobilisationDate, new FuzzyDateTime(new DateTime(1940, 05, 1), "yyyy/MM")),
+                GetCitationPage(4, scrapBook),
+                audit);
+
+            var firstCavalryDivision = new Division("1st Cavalry", armouredCar, uk,
+                GetCitationPage(4, scrapBook),
+                audit);
+            firstCavalryDivision.AddLocation(catterickGarrisionPosting);
+
+            var cocFirstDerbyshireYeomanry = new TemporalChainOfCommand(firstCavalryDivision, firstDerbyshireYeomanry, new FuzzyDateRange(mobilisationDate, new FuzzyDateTime(new DateTime(1940, 05, 1), "yyyy/MM")),
+                GetCitationPage(4, scrapBook),
+                audit);
+            firstCavalryDivision.AddHierarchy(cocFirstDerbyshireYeomanry);
+            firstDerbyshireYeomanry.AddHierarchy(cocFirstDerbyshireYeomanry);
+
+            var search = new FuzzyDateRange(new FuzzyDateTime(new DateTime(1939, 1, 1), "yyyy/MM/dd"), new FuzzyDateTime(new DateTime(1940, 12, 31), "yyyy/MM/dd"));
+
+
+            var aSquadron = new Squadron("A", armouredCar, uk, GetCitationPage(7, scrapBook), audit);
+            var bSquadron = new Squadron("B", armouredCar, uk, GetCitationPage(7, scrapBook), audit);
+            var cSquadron = new Squadron("C", armouredCar, uk, GetCitationPage(7, scrapBook), audit);
+            var dSquadron = new Squadron("D", armouredCar, uk, GetCitationPage(7, scrapBook), audit);
+
+
+            EstablishChainOfCommand(firstDerbyshireYeomanry, aSquadron, mobilisationDate, veDay, GetCitationPage(4, scrapBook), audit);
+            EstablishChainOfCommand(firstDerbyshireYeomanry, bSquadron, mobilisationDate, veDay, GetCitationPage(4, scrapBook), audit);
+            EstablishChainOfCommand(firstDerbyshireYeomanry, cSquadron, mobilisationDate, veDay, GetCitationPage(4, scrapBook), audit);
+            EstablishChainOfCommand(firstDerbyshireYeomanry, dSquadron, mobilisationDate, veDay, GetCitationPage(4, scrapBook), audit);
+
+            var caistor = new Municipality("Caistor");
+            var talbotArms = new SimplePostalAddress(null, new SimpleStreetAddress("16 High Street"), caistor, null, new SimplePostalCode("LN7 6QF"), uk, null, null);
+            var rotationStart = new DateTime(1939, 11, 27);
+            var talbotArmsPostingRotation1 = new TemporalLocation(talbotArms, new FuzzyDateRange(new FuzzyDateTime(rotationStart, "yyyy/MM/dd"), 14),
+                GetCitationPage(2, scrapBook),
+                audit);
+            var talbotArmsPostingRotation2 = new TemporalLocation(talbotArms, new FuzzyDateRange(new FuzzyDateTime(rotationStart.AddDays(14), "yyyy/MM/dd"), 14),
+                GetCitationPage(2, scrapBook),
+                audit);
+            var talbotArmsPostingRotation3 = new TemporalLocation(talbotArms, new FuzzyDateRange(new FuzzyDateTime(rotationStart.AddDays(28), "yyyy/MM/dd"), 14),
+                GetCitationPage(2, scrapBook),
+                audit);
+            var talbotArmsPostingRotation4 = new TemporalLocation(talbotArms, new FuzzyDateRange(new FuzzyDateTime(rotationStart.AddDays(42), "yyyy/MM/dd"), 14),
+                GetCitationPage(2, scrapBook),
+                audit);
+
+            aSquadron.AddLocation(talbotArmsPostingRotation1);
+            bSquadron.AddLocation(talbotArmsPostingRotation2);
+            cSquadron.AddLocation(talbotArmsPostingRotation3);
+            dSquadron.AddLocation(talbotArmsPostingRotation4);
+
+
+
+            entries.Add(GetEntry(firstDerbyshireYeomanry, firstDerbyshireYeomanry.Locations[0]));
+            entries.Add(GetEntry(firstDerbyshireYeomanry, firstDerbyshireYeomanry.Locations[1]));
+            entries.Add(GetEntry(mccHarrison, mccHarrison.Locations[0]));
+            entries.Add(GetEntry(firstCavalryDivision, firstCavalryDivision.Locations[0]));
+            entries.Add(GetEntry(aSquadron, aSquadron.Locations[0]));
+            entries.Add(GetEntry(bSquadron, bSquadron.Locations[0]));
+            entries.Add(GetEntry(cSquadron, cSquadron.Locations[0]));
+            entries.Add(GetEntry(dSquadron, dSquadron.Locations[0]));
             /*
-                        var beginningName = entry.When.StartDateTime.DateTime.ToString("yyyy-MM-dd");
-                        var endingName = entry.When.EndDateTime?.DateTime.ToString("yyyy-MM-dd");
-                        if (endingName == null)
-                        {
-                            endingName = beginningName;
-                        }
 
-                        var entryName = $"{entry.What.Name.Replace(" ", "_")}-{beginningName}-{endingName}";
-                        */
-            var entryName = $"out";
+                        /*
+                                    entries.Add(new Entry(firstDerbyshireYeomanry,
+                                                            siddalsRoad,
+                                                            new FuzzyDateRange(mobilisationDate),
+                                                            GetCitationPage(1, scrapBook),
+                                                            audit));
 
+                                    entries.Add(new Entry(firstDerbyshireYeomanry,
+                                       ashbourneRoad,
+                                       new FuzzyDateRange(new FuzzyDateTime(new DateTime(1939, 11, 1), "yyyy/MM"), new FuzzyDateTime(new DateTime(1940, 05, 1), "yyyy/MM")),
+                                       GetCitationPage(2, scrapBook),
+                                       audit));
 
-            // This allows us to save and Element easily.
-            KmlFile kml = KmlFile.Create(document, false);
-            using (var stream = System.IO.File.OpenWrite($"{entryName}.kml"))
-            {
-                kml.Save(stream);
-            }
+                                    entries.Add(new Entry(mccHarrison,
+                                        ashbourneRoad,
+                                        new FuzzyDateRange(new FuzzyDateTime(new DateTime(1939, 11, 1), "yyyy/MM"), new FuzzyDateTime(new DateTime(1940, 05, 1), "yyyy/MM")),
+                                        GetCitationPage(2, scrapBook),
+                                        audit));
+                                        */
+
+            return entries;
         }
 
-        private static async Task<Placemark> GetPlaceMark(Entry entry)
+        private static void EstablishChainOfCommand(AbstractOrganisation superior, AbstractOrganisation inferior, FuzzyDateTime from, FuzzyDateTime to, ICitation citation, IAudit audit)
         {
-            // https://console.cloud.google.com/google/maps-apis/overview;onboard=true?authuser=1&project=maximal-radius-279712
+            var coc = new TemporalChainOfCommand(superior, inferior, new FuzzyDateRange(from, to),
+              citation,
+              audit);
+            inferior.AddHierarchy(coc);
+            superior.AddHierarchy(coc);
+        }
 
-            var gls = new GoogleLocationService(apikey: "AIzaSyD5wjy1Ili-biytep1ni_4sAOMBBepPSTg");
-            var address = GetAddressData(entry);
+        private static Entry GetEntry(IEntity entity, TemporalLocation temporalLocation)
+        {
+            return new Entry(entity, temporalLocation.Location, temporalLocation.DateTimeRange, temporalLocation.Citation, temporalLocation.Audit);
+        }
 
-            var latlong = gls.GetLatLongFromAddress(address);
-            var Latitude = latlong.Latitude;
-            var Longitude = latlong.Longitude;
+        private static ICitation GetCitationPage(int page, IPublication publication)
+        {
+            return GetCitationPage(page, page, publication);
+        }
 
-            var point = new Point
+        private static ICitation GetCitationPage(int firstPage, int lastPage, IPublication publication)
+        {
+            var key = $"{firstPage}-{lastPage}";
+            if (!citations.Keys.Contains(key))
             {
-                Coordinate = new SharpKml.Base.Vector(Latitude, Longitude)
-            };
-
-
-            var symbolFactory = new WikimediaImageFactory();
-            var unitSymbolUrl = await symbolFactory.GetUnitSymbolUrl(entry.What.Purpose); // "Reconnaissance");
-            var unitSizeUrl = await symbolFactory.GetUnitSizeUrl(entry.What.Size); // "Regiment_or_Group");
-
-
-
-            var beginning = entry.When.StartDateTime.DateTime;
-            DateTime? ending = entry.When.EndDateTime?.DateTime;
-
-            var beginningFormatted = entry.When.StartDateTime.DateTime.ToString(entry.When.StartDateTime.Format);
-            var endingFormatted = entry.When.EndDateTime?.DateTime.ToString(entry.When.EndDateTime?.Format);
-            if (endingFormatted == null)
-            {
-                endingFormatted = beginningFormatted;
+                citations[key] = new ApaCitation(new SimplePageRange(firstPage, lastPage), publication);
             }
 
-            var placemark = new Placemark
-            {
-                Geometry = point,
-                Name = address.ToString(),
-                Time = new SharpKml.Dom.TimeSpan
-                {
-                    Begin = beginning,
-                    End = ending,
-                },
-                Description = Render(entry, unitSymbolUrl, unitSizeUrl, beginningFormatted, endingFormatted),
-                // TODO StyleUrl
-            };
-
-            Gps centre = new Gps(Latitude, Longitude);
-
-            // In metres
-            double worldRadius = 6371000;
-            // In metres
-            double circleRadius = 1000;
-            Gps[] points = new Gps[20];
-            CirclePoints(points, centre, worldRadius, circleRadius);
-            var polygon = new Polygon();
-            polygon.Extrude = true;
-            polygon.AltitudeMode = AltitudeMode.RelativeToGround;
-            polygon.OuterBoundary = new OuterBoundary();
-            polygon.OuterBoundary.LinearRing = new LinearRing();
-            polygon.OuterBoundary.LinearRing.Coordinates = new CoordinateCollection();
-            points.ToList<Gps>().ForEach(g => {
-                polygon.OuterBoundary.LinearRing.Coordinates.Add(new SharpKml.Base.Vector(g.Latitude, g.Longtitude, 30));
-            });
-            polygon
-
-            placemark.Geometry = polygon;
-
-            return placemark;
-        }
-
-        private static Description Render(Entry entry, string unitSymbolUrl, string unitSizeUrl, string beginningFormatted, string endingFormatted)
-        {
-            return new Description
-            {
-                Text = $"<![CDATA[" +
-                                $"<h1>{entry.What.Name}</h1>\r\n" +
-                                $"<h2>{beginningFormatted}-{endingFormatted}</h2>\r\n" +
-                                $"<img src=\"{unitSymbolUrl}\" width=\"100\"><br/>\r\n" +
-                                $"<img src=\"{unitSizeUrl}\"  width = \"100\" >" +
-                                $"]]>"
-            };
-        }
-
-        private static AddressData GetAddressData(Entry entry)
-        {
-            var postalAddress = entry.Where as IPostalAddress;
-            if (postalAddress != null)
-            {
-                return new AddressData()
-                {
-                    Address = postalAddress.StreetAddress.ToString(),
-                    Country = postalAddress.Country.Name,
-                    City = postalAddress.Locality.Name,
-                };
-            }
-
-            return null;
-        }
-
-
-        private static void CirclePoints(Gps[] points, Gps centre, double R, double r)
-        {
-            int count = points.Length;
-
-            Vector C = centre.ToUnitVector();
-            double t = r / R;
-            Vector K = Math.Cos(t) * C;
-            double s = Math.Sin(t);
-
-            Vector U = K.Orthogonal();
-            Vector V = K.Cross(U);
-            // Improve orthogonality
-            U = K.Cross(V);
-
-            for (int point = 0; point != count; ++point)
-            {
-                double a = 2 * Math.PI * point / count;
-                Vector P = K + s * (Math.Sin(a) * U + Math.Cos(a) * V);
-                points[point] = P.ToGps();
-            }
-        }
-    }
-
-
-    struct Gps
-    {
-        // In degrees
-        public readonly double Latitude;
-        public readonly double Longtitude;
-
-        public Gps(double latitude, double longtitude)
-        {
-            Latitude = latitude;
-            Longtitude = longtitude;
-        }
-
-        public override string ToString()
-        {
-            return string.Format("({0},{1})", Latitude, Longtitude);
-        }
-
-        public Vector ToUnitVector()
-        {
-            double lat = Latitude / 180 * Math.PI;
-            double lng = Longtitude / 180 * Math.PI;
-
-            // Z is North
-            // X points at the Greenwich meridian
-            return new Vector(Math.Cos(lng) * Math.Cos(lat), Math.Sin(lng) * Math.Cos(lat), Math.Sin(lat));
-        }
-    }
-
-    struct Vector
-    {
-        public readonly double X;
-        public readonly double Y;
-        public readonly double Z;
-
-        public Vector(double x, double y, double z)
-        {
-            X = x;
-            Y = y;
-            Z = z;
-        }
-
-        public double MagnitudeSquared()
-        {
-            return X * X + Y * Y + Z * Z;
-        }
-
-        public double Magnitude()
-        {
-            return Math.Sqrt(MagnitudeSquared());
-        }
-
-        public Vector ToUnit()
-        {
-            double m = Magnitude();
-
-            return new Vector(X / m, Y / m, Z / m);
-        }
-
-        public Gps ToGps()
-        {
-            Vector unit = ToUnit();
-            // Rounding errors
-            double z = unit.Z;
-            if (z > 1)
-                z = 1;
-
-            double lat = Math.Asin(z);
-
-            double lng = Math.Atan2(unit.Y, unit.X);
-
-            return new Gps(lat * 180 / Math.PI, lng * 180 / Math.PI);
-        }
-
-        public static Vector operator *(double m, Vector v)
-        {
-            return new Vector(m * v.X, m * v.Y, m * v.Z);
-        }
-
-        public static Vector operator -(Vector a, Vector b)
-        {
-            return new Vector(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
-        }
-
-        public static Vector operator +(Vector a, Vector b)
-        {
-            return new Vector(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
-        }
-
-        public override string ToString()
-        {
-            return string.Format("({0},{1},{2})", X, Y, Z);
-        }
-
-        public double Dot(Vector that)
-        {
-            return X * that.X + Y * that.Y + Z * that.Z;
-        }
-
-        public Vector Cross(Vector that)
-        {
-            return new Vector(Y * that.Z - Z * that.Y, Z * that.X - X * that.Z, X * that.Y - Y * that.X);
-        }
-
-        // Pick a random orthogonal vector
-        public Vector Orthogonal()
-        {
-            double minNormal = Math.Abs(X);
-            int minIndex = 0;
-            if (Math.Abs(Y) < minNormal)
-            {
-                minNormal = Math.Abs(Y);
-                minIndex = 1;
-            }
-            if (Math.Abs(Z) < minNormal)
-            {
-                minNormal = Math.Abs(Z);
-                minIndex = 2;
-            }
-
-            Vector B;
-            switch (minIndex)
-            {
-                case 0:
-                    B = new Vector(1, 0, 0);
-                    break;
-                case 1:
-                    B = new Vector(0, 1, 0);
-                    break;
-                default:
-                    B = new Vector(0, 0, 1);
-                    break;
-            }
-
-            return (B - minNormal * this).ToUnit();
+            return citations[key];
         }
     }
 }

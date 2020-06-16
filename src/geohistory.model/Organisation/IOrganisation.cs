@@ -1,16 +1,21 @@
 using System.Collections.Generic;
+using System.Globalization;
 using Uk.Co.Itofinity.Geohistory.Model.Organisation;
+using Uk.Co.Itofinity.Geohistory.Model.People;
+using Uk.Co.Itofinity.Geohistory.Model.Role;
 
 namespace Uk.Co.Itofinity.Geohistory.Model
 {
-    public interface IOrganisation
+    public interface IOrganisation : IEntity
     {
-        HashSet<TemporalChainOfCommand> Superiors { get; }
-        HashSet<TemporalChainOfCommand> Subbordinates { get; }
         string Size { get; }
 
-        string Purpose { get; }
+        List<TemporalRole> Personel { get; }
 
-        string Name { get; }
+        void AddPersonel(TemporalRole appointment);
+
+        List<TemporalRole> Purposes { get; }
+
+        void AddPurpose(TemporalRole appointment);
     }
 }

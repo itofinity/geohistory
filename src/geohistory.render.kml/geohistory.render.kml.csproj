@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Uk.Co.Itofinity.GeoHistory.Render.Kml</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GoogleMaps.LocationServices" Version="1.2.0.5" />
+    <PackageReference Include="SharpKml.Core" Version="5.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\geohistory.data.remote.wikimedia\geohistory.data.remote.wikimedia.csproj" />
+    <ProjectReference Include="..\geohistory.model\geohistory.model.csproj" />
+  </ItemGroup>
+
+</Project>

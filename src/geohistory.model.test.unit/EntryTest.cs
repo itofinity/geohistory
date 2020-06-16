@@ -31,7 +31,7 @@ namespace Uk.Co.Itofinity.Geohistory.Model.test.unit.citation
             publisher addresses (/)
 
             */
-
+            /*
             var citation = new ApaCitation(
                     new SimplePageRange(59),
                     new SimplePublication("Crete. The Battle and The Resistence",
@@ -87,7 +87,7 @@ namespace Uk.Co.Itofinity.Geohistory.Model.test.unit.citation
                 );
 
                 citation.ToString().Should().Be("Beevor, A. (1991). Crete. The Battle and The Resistence. London: Penguin Group.");
-
+            */
 /*
             Battalion 1?
             Battalion 2?
@@ -101,17 +101,17 @@ namespace Uk.Co.Itofinity.Geohistory.Model.test.unit.citation
             25/04/1941
  */
             var newZealand = new RegionInfo("nz");
-            var brigadierJamesHargest = new Person("Hargest", "James", new DateTime(1891, 9, 4));
-            var brigadier = new Brigadier(newZealand);
-            brigadierJamesHargest.AddRole(new TemporalRole(brigadier, new FuzzyDateTime(new DateTime(1940, 5, 1), "yyyy/MM")));
+            //var brigadierJamesHargest = new Person("Hargest", "James", new DateTime(1891, 9, 4));
+            //var brigadier = new Brigadier(newZealand);
+            //brigadierJamesHargest.AddRole(new TemporalRole(brigadier, new FuzzyDateTime(new DateTime(1940, 5, 1), "yyyy/MM")));
             
-            var secondNewZealandDivision = new Division(newZealand);
+            //var secondNewZealandDivision = new Division(newZealand);
             
-            var fifthNewZealandBrigade = new Brigade(newZealand);
-            secondNewZealandDivision.AddSubordinate(new TemporalChainOfCommand(fifthNewZealandBrigade, new FuzzyDateTime(new DateTime(1940, 5, 1), "yyyy/MM")));
+            //var fifthNewZealandBrigade = new Brigade(newZealand);
+            //secondNewZealandDivision.AddSubordinate(new TemporalChainOfCommand(fifthNewZealandBrigade, new FuzzyDateTime(new DateTime(1940, 5, 1), "yyyy/MM")));
 
-            var battalion1 = new Battalion(newZealand);
-            battalion1.AddSuperior(new TemporalChainOfCommand(secondNewZealandDivision, new FuzzyDateTime(new DateTime(1940, 5, 1), "yyyy/MM")));
+            //var battalion1 = new Battalion(newZealand);
+            //battalion1.AddSuperior(new TemporalChainOfCommand(secondNewZealandDivision, new FuzzyDateTime(new DateTime(1940, 5, 1), "yyyy/MM")));
             /*
             var battalion4 = new Unit<Battalion>() {
                 country = newZealand,

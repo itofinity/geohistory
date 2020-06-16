@@ -1,7 +1,9 @@
 namespace Uk.Co.Itofinity.Geohistory.Model.Role
 {
-    public interface IRole
+    public interface IRole : INamed
     {
-        
+        double ControlFactor { get;  }
+
+        double InfluenceFactor { get; }
     }
 }

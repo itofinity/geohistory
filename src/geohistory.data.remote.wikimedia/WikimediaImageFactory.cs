@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using System.Linq;
 using HtmlAgilityPack;
 
-namespace Uk.Co.Itofinity.GeoHistory.SpikeOne
+namespace Uk.Co.Itofinity.GeoHistory.Data.Remote.Wikimedia
 {
     public class WikimediaImageFactory
     {

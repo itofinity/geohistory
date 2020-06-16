@@ -45,7 +45,7 @@ namespace Uk.Co.Itofinity.Geohistory.Model.Citation
 
         public static string GetReversePeopleString(List<IPerson> people)
         {
-            return GetReversePeopleString(people, "&" );
+            return GetReversePeopleString(people, "&");
         }
 
         public static string GetReversePeopleString(List<IPerson> people, string seperator)
