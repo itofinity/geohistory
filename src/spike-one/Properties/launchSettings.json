@@ -2,7 +2,7 @@
   "profiles": {
     "Spike-One": {
       "commandName": "Project",
-      "commandLineArgs": "--apikey APIKEY --output bert"
+      "commandLineArgs": "--apikey AIzaSyB7nquw9e91qk-dITttKiUJib3cAhOTdxY --output bert"
     }
   }
 }

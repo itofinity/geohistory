@@ -11,8 +11,8 @@ namespace Uk.Co.Itofinity.Geohistory.Model.Role.Military
 
         public string ShortName => Glossary.Reconnaissance;
 
-        public double ControlFactor => 0.5;
+        public double ControlFactor => 1.0;
 
-        public double InfluenceFactor => 2.0;
+        public double InfluenceFactor => 10.0;
     }
 }

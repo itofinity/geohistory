@@ -66,6 +66,12 @@ namespace Uk.Co.Itofinity.GeoHistory.Render.Kml
         {
             this._filePath = filePath;
             this._document = new Document();
+
+            _document.AddFeature(new Folder() { Id = "Units", Name = "Units" }); 
+            _document.AddFeature(new Folder() { Id = "ZonesOfControl", Name = "ZonesOfControl" });
+            _document.AddFeature(new Folder() { Id = "ZonesOfInfluence", Name = "ZonesOfInfluence" });
+            _document.AddFeature(new Folder() { Id = "LinesOfCommand", Name = "LinesOfCommand" });
+            _document.AddFeature(new Folder() { Id = "RoutesTo", Name = "RoutesTo" });
             //_defaultStyles.Values.ToList().ForEach(s => this._document.AddStyle(s));
         }
 
@@ -92,26 +98,31 @@ namespace Uk.Co.Itofinity.GeoHistory.Render.Kml
 
         public async Task Write(RenderEntry re)
         {
-
-            var location = await GetLocation(re);
+            var units = _document.FindFeature("Units") as Folder;
+            var location = await GetUnit(re);
             if (location != null)
             {
-                _document.AddFeature(location);
+                units.AddFeature(location);
             }
 
+
             var zoneOfControl = await GetZoneOfControl(re);
-            _document.AddFeature(zoneOfControl);
+            var zonesOfControl = _document.FindFeature("ZonesOfControl") as Folder;
+            zonesOfControl.AddFeature(zoneOfControl);
+
             var zoneOfInfluence = await GetZoneOfInfluence(re);
-            _document.AddFeature(zoneOfInfluence);
+            var zonesOfInfluence = _document.FindFeature("ZonesOfInfluence") as Folder;
+            zonesOfInfluence.AddFeature(zoneOfInfluence);
 
             var linesOfCommand = await GetLinesOfCommand(re);
-            linesOfCommand.ForEach(loc => _document.AddFeature(loc));
+            var linesOfCommands = _document.FindFeature("LinesOfCommand") as Folder;
+            linesOfCommand.ForEach(loc => linesOfCommands.AddFeature(loc));
             
-
+            var routesTo = _document.FindFeature("RoutesTo") as Folder;
             var pathTo = await GetRouteTo(re);
             if (pathTo != null)
             {
-                _document.AddFeature(pathTo);
+                routesTo.AddFeature(pathTo);
             }
         }
 
@@ -340,7 +351,7 @@ namespace Uk.Co.Itofinity.GeoHistory.Render.Kml
             return polygon;
         }
 
-        private async Task<Placemark> GetLocation(RenderEntry data)
+        private async Task<Placemark> GetUnit(RenderEntry data)
         {
             if (!data.Entry.Where.Latitude.HasValue || !data.Entry.Where.Longtitude.HasValue)
             {

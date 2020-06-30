@@ -110,7 +110,7 @@ namespace Uk.Co.Itofinity.GeoHistory.SpikeOne
             switch (e.What.Country.Name.ToLower())
             {
                 case "uk":
-                    return Color.Green;
+                    return Color.Blue;
                     break;
                 default:
                     return Color.Yellow;
