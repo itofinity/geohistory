@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Uk.Co.Itofinity.Geohistory.Model.Time;
+using Uk.Co.Itofinity.GeoHistory.Model.Time;
 
-namespace Uk.Co.Itofinity.Geohistory.Model.Citation
+namespace Uk.Co.Itofinity.GeoHistory.Model.Citation
 {
     public class SimplePublication : IPublication
     {

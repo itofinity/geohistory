@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Uk.Co.Itofinity.GeoHistory.Render.Kml
 {

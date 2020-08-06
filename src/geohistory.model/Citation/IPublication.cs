@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Uk.Co.Itofinity.Geohistory.Model.Time;
+using Uk.Co.Itofinity.GeoHistory.Model.Time;
 
-namespace Uk.Co.Itofinity.Geohistory.Model.Citation
+namespace Uk.Co.Itofinity.GeoHistory.Model.Citation
 {
     public interface IPublication
     {

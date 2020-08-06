@@ -1,12 +1,8 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using System.Linq;
-using HtmlAgilityPack;
 
 namespace Uk.Co.Itofinity.GeoHistory.Data.Remote.Wikimedia
 {
@@ -26,10 +22,12 @@ namespace Uk.Co.Itofinity.GeoHistory.Data.Remote.Wikimedia
             var responseString = await response.Content.ReadAsStringAsync();
 
 
-            var definition = new { Parse = new 
+            var definition = new
+            {
+                Parse = new
                 {
                     Images = new List<string>()
-                } 
+                }
             };
 
             var page = JsonConvert.DeserializeAnonymousType(responseString, definition);
@@ -69,13 +67,13 @@ namespace Uk.Co.Itofinity.GeoHistory.Data.Remote.Wikimedia
 
         public async Task<IEnumerable<string>> GetImages()
         {
-            if(_images == null)
+            if (_images == null)
             {
                 _images = await GetImageCollection();
             }
 
             return _images;
-            
+
         }
     }
 }

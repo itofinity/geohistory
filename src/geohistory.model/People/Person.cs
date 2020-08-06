@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Uk.Co.Itofinity.Geohistory.Model.Audit;
-using Uk.Co.Itofinity.Geohistory.Model.Citation;
-using Uk.Co.Itofinity.Geohistory.Model.Location;
-using Uk.Co.Itofinity.Geohistory.Model.Organisation;
-using Uk.Co.Itofinity.Geohistory.Model.Organisation.Military;
-using Uk.Co.Itofinity.Geohistory.Model.Role;
+using Uk.Co.Itofinity.GeoHistory.Model.Audit;
+using Uk.Co.Itofinity.GeoHistory.Model.Citation;
+using Uk.Co.Itofinity.GeoHistory.Model.Location;
+using Uk.Co.Itofinity.GeoHistory.Model.Organisation;
+using Uk.Co.Itofinity.GeoHistory.Model.Organisation.Military;
+using Uk.Co.Itofinity.GeoHistory.Model.Role;
 
-namespace Uk.Co.Itofinity.Geohistory.Model.People
+namespace Uk.Co.Itofinity.GeoHistory.Model.People
 {
     public class Person : IEntity
     {
@@ -29,9 +29,9 @@ namespace Uk.Co.Itofinity.Geohistory.Model.People
 
         public DateTime? DateOfBirth { get; }
 
-        public string GivenName 
+        public string GivenName
         {
-            get 
+            get
             {
                 return GiveNames[0];
             }
@@ -47,7 +47,7 @@ namespace Uk.Co.Itofinity.Geohistory.Model.People
 
         public IZone ZoneOfControl => new SimpleZone(1.0, 1.0);
 
-        public RegionInfo Country { get;  }
+        public RegionInfo Country { get; }
 
         public string Name => ToString();
 
@@ -61,7 +61,7 @@ namespace Uk.Co.Itofinity.Geohistory.Model.People
 
         public IAudit Audit { get; }
 
-        public List<TemporalLocation> Locations { get;  }
+        public List<TemporalLocation> Locations { get; }
         public void AddLocation(TemporalLocation location)
         {
             Locations.Add(location);

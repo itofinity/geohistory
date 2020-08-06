@@ -2,13 +2,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using Uk.Co.Itofinity.Geohistory.Model.Audit;
-using Uk.Co.Itofinity.Geohistory.Model.Citation;
-using Uk.Co.Itofinity.Geohistory.Model.Location;
-using Uk.Co.Itofinity.Geohistory.Model.People;
-using Uk.Co.Itofinity.Geohistory.Model.Role;
+using Uk.Co.Itofinity.GeoHistory.Model.Audit;
+using Uk.Co.Itofinity.GeoHistory.Model.Citation;
+using Uk.Co.Itofinity.GeoHistory.Model.Location;
+using Uk.Co.Itofinity.GeoHistory.Model.Role;
 
-namespace Uk.Co.Itofinity.Geohistory.Model.Organisation.Military
+namespace Uk.Co.Itofinity.GeoHistory.Model.Organisation.Military
 {
     public abstract class AbstractOrganisation : IOrganisation
     {
@@ -37,14 +36,15 @@ namespace Uk.Co.Itofinity.Geohistory.Model.Organisation.Military
         public IAudit Audit { get; }
         public string Name { get; }
 
-        public string ShortName { 
-            get 
+        public string ShortName
+        {
+            get
             {
                 var parts = this.Name.Split(' ');
                 var buffer = new StringBuilder();
                 parts.ToList().ForEach(p => buffer.Append(p[0] + " "));
                 return buffer.ToString().Trim();
-            } 
+            }
         }
 
         public void AddHierarchy(TemporalChainOfCommand temporalChainOfCommand)

@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
-using Uk.Co.Itofinity.Geohistory.Model.Time;
+using Uk.Co.Itofinity.GeoHistory.Model.Time;
 
-namespace Uk.Co.Itofinity.Geohistory.Model.Citation
+namespace Uk.Co.Itofinity.GeoHistory.Model.Citation
 {
-    public class SimpleWebsite: IPublication
+    public class SimpleWebsite : IPublication
     {
         public SimpleWebsite(Uri uri)
         {
-            
+
         }
 
         public string Name => throw new NotImplementedException();

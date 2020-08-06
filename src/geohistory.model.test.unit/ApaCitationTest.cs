@@ -1,12 +1,10 @@
-using Xunit;
 using FluentAssertions;
-using System.Collections.Generic;
 using System;
-using System.Linq;
-using Uk.Co.Itofinity.Geohistory.Model.Citation;
-using System.Globalization;
+using System.Collections.Generic;
+using Uk.Co.Itofinity.GeoHistory.Model.Citation;
+using Xunit;
 
-namespace Uk.Co.Itofinity.Geohistory.Model.test.unit.citation
+namespace Uk.Co.Itofinity.GeoHistory.Model.test.unit.citation
 {
     /// taken from https://pitt.libguides.com/c.php?g=12108&p=64730
     public class ApaCitationTest
@@ -47,7 +45,7 @@ namespace Uk.Co.Itofinity.Geohistory.Model.test.unit.citation
                 )
             ));
         }
-
+        /*
         [Fact]
         public void VerifyABookChapterPrintVersion()
         {
@@ -112,7 +110,7 @@ namespace Uk.Co.Itofinity.Geohistory.Model.test.unit.citation
                 )
            );
         }
-
+        */
         private static void AssertInTextCitation(string expectedLine, ApaCitation citation)
         {
             var actualLine = citation.ToInTextString();
@@ -136,8 +134,8 @@ namespace Uk.Co.Itofinity.Geohistory.Model.test.unit.citation
 
         private static void AssertCitation(string expectedLine, string actualLine)
         {
-            System.Console.WriteLine("["+ actualLine + "]");
-            System.Console.WriteLine("["+ expectedLine + "]");
+            System.Console.WriteLine("[" + actualLine + "]");
+            System.Console.WriteLine("[" + expectedLine + "]");
 
             actualLine.Should().Be(expectedLine);
         }

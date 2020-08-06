@@ -1,35 +1,14 @@
-﻿using GoogleMaps.LocationServices;
-using SharpKml.Base;
-using SharpKml.Dom;
-using SharpKml.Engine;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using Uk.Co.Itofinity.GeoHistory.Render.Kml;
+﻿using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
-using Microsoft.Extensions.Configuration;
-using System.IO;
-using Uk.Co.Itofinity.Geohistory.Model.Role.Military;
-using System.Drawing;
-using Uk.Co.Itofinity.Geohistory.Model.Citation;
-using Uk.Co.Itofinity.Geohistory.Model.Audit;
-using Uk.Co.Itofinity.Geohistory.Model.Organisation.Military;
-using Uk.Co.Itofinity.Geohistory.Model.Time;
-using Uk.Co.Itofinity.Geohistory.Model;
-using Uk.Co.Itofinity.Geohistory.Model.People;
-using Uk.Co.Itofinity.Geohistory.Model.Role;
-using Uk.Co.Itofinity.Geohistory.Model.Location;
-using Uk.Co.Itofinity.Geohistory.Model.Organisation;
+using System.Threading.Tasks;
+using static tinkerpop.scripts.ScriptBuilder;
+using static tinkerpop.scripts.ScriptClauses;
 
 namespace Uk.Co.Itofinity.GeoHistory.SpikeOne
 {
     class Program
     {
-        private static Dictionary<string, ICitation> citations = new Dictionary<string, ICitation>();
-
         static async Task<int> Main(string[] args)
         {
             // Create a root command with some options
@@ -43,12 +22,28 @@ namespace Uk.Co.Itofinity.GeoHistory.SpikeOne
                     "--output",
                     getDefaultValue: () => "ringo",
                     description: "the root filename to use for output"),
+                 new Option<string>(
+                    "--approach",
+                    getDefaultValue: () => "gremlin",
+                    description: "the approach to test"),
             };
             rootCommand.Description = "Generate KML!";
 
-            rootCommand.Handler = CommandHandler.Create<string, string>((apikey, output) =>
+            rootCommand.Handler = CommandHandler.Create<string, string, string>(async (apikey, output, approach) =>
             {
-                run(apikey, output);
+                //runV1(apikey, output);
+                if ("gremlin".Equals(approach))
+                {
+                    GremlinData.run();
+                }
+
+                if ("memory".Equals(approach))
+                {
+                    MemoryData.run(apikey, output);
+                }
+
+                // Will Not Work
+                //await runV3Async();
             });
 
             // Parse the incoming args and invoke the handler
@@ -56,208 +51,69 @@ namespace Uk.Co.Itofinity.GeoHistory.SpikeOne
 
         }
 
-        private static void run(string apikey, string output)
+
+
+
+
+
+
+
+
+
+        private static Dictionary<string, string> gremlinQueries = new Dictionary<string, string>
         {
-            Console.WriteLine("Generate KML!");
-            List<Entry> entries = SearchDataModel();
+            { "Cleanup",        g.V().drop().Build() },
+            { "AddVertex 1",    g.AddV("person").property("id", "thomas").property("firstName", "Thomas").property("age", 44).property("pk", "pk").Build() },
+            { "AddVertex 2",    g.addV("person").property("id", "mary").property("firstName", "Mary").property("lastName", "Andersen").property("age", 39).property("pk", "pk").Build() },
+            { "AddVertex 3",    g.addV("person").property("id", "ben").property("firstName", "Ben").property("lastName", "Miller").property("pk", "pk").Build() },
+            { "AddVertex 4",    g.addV("person").property("id", "robin").property("firstName", "Robin").property("lastName", "Wakefield").property("pk", "pk").Build() },
+            { "AddVertex 5",    g.addV("person").property("id", "robin2").property("firstName", "Robin").property("lastName", "Wakefield").property("pk", "pk").Build() },
+            { "AddVertex 6",    g.addV("person").property("id", "robin2").property("firstName", "Robin").property("lastName", "Wakefield").property("pk", "pk2").Build() },
+            { "AddEdge 1",      g.V("thomas").addE("knows").to(g.V("mary").Build()).Build() },
+            { "AddEdge 2",      g.V("thomas").addE("knows").to(g.V("ben").Build()).Build() },
+            { "AddEdge 3",      g.V("ben").addE("knows").to(g.V("robin").Build()).Build() },
+            { "UpdateVertex",   g.V("thomas").property("age", 44).Build() },
+            { "CountVertices",  g.V().count().Build() },
+            { "Filter Range",   g.V().hasLabel("person").has("age", gt(40)).Build() },
+            { "Project",        g.V().hasLabel("person").values("firstName").Build() },
+            { "Sort",           g.V().hasLabel("person").order().by("firstName", decr).Build() },
+            { "Traverse",       g.V("thomas").@out("knows").hasLabel("person").Build() },
+            { "Traverse 2x",    g.V("thomas").@out("knows").hasLabel("person").@out("knows").hasLabel("person").Build() },
+            { "Loop",           g.V("thomas").repeat(@out()).until(has("id", "robin")).path().Build() },
+            { "DropEdge",       g.V("thomas").outE("knows").where(inV().has("id", "'mary'").Build()).drop().Build() },
+            { "CountEdges",     g.E().count().Build() },
+            { "DropVertex",     g.V("thomas").drop().Build() },
+        };
 
-            //TODO normalize the data set
-            // e.g. if there is no enddate for an entry take the startdate of the next entry for the same unit etc ....
-            var kmlData = Normalizer.ForRendering(entries, apikey);
-
-            using (var writer = KmlWriter.Create(output + "-" + DateTime.Now.Ticks))
-            {
-                kmlData.ToList().ForEach(async re => await writer.Write(re));
-
-            }
-        }
-
-        private static List<Entry> SearchDataModel()
+        private static Dictionary<string, string> gremlinQueriesOG = new Dictionary<string, string>
         {
-            var entries = new List<Entry>();
-
-            var uk = new RegionInfo("en-UK");
-            var derby = new Municipality("Derby");
-            var catterick = new Municipality("Catterick");
-            var london = new Municipality("London");
-            var audit = new SimpleAudit("mminns@itofinity.co.uk");
-
-            var scrapBook = new SimplePublication("1st Derbyshire Yeomanry Scrapbook 1939 - 1947",
-                new VariousAuthors(),
-                new UnknownEditors(),
-                new UnknownPublicationDateTime(),
-                new SimplePublisher("Bemrose & Sons Ltd",
-                    new List<IPostalAddress>() {
-                        new SimplePostalAddress(derby, uk),
-                        new SimplePostalAddress(london, uk)
-                    }
-                )
-            );
-
-            var mobilisationDate = new FuzzyDateTime(new DateTime(1939, 7, 29), "yyyy/MM/dd");
-            var veDay = new FuzzyDateTime(new DateTime(1945, 5, 8), "yyyy/MM/dd");
-
-            var armouredCar = new TemporalRole(
-                new Reconnaissance(),
-                new FuzzyDateRange(
-                    mobilisationDate),
-                GetCitationPage(1, scrapBook),
-                audit);
-
-
-
-            var firstDerbyshireYeomanry = new Regiment("1st Derbyshire Yeomanry", armouredCar, uk, GetCitationPage(1, scrapBook),
-                audit);
-
-            var siddalsRoad = new SimplePostalAddress(null, new SimpleStreetAddress(91, "Siddals Road"), derby, null, null, uk, null, null);
-            var siddalsRoadPosting = new TemporalLocation(siddalsRoad, new FuzzyDateRange(mobilisationDate),
-                                    GetCitationPage(1, scrapBook),
-                                    audit);
-
-            firstDerbyshireYeomanry.AddLocation(siddalsRoadPosting);
-
-            var mccHarrison = new Person("M.C.C", "Harrision", null, uk, GetCitationPage(2, scrapBook),
-                audit);
-
-            var commandFirstDerbyshireYeomanryPosting = new TemporalRole(new LieutenantColonel(firstDerbyshireYeomanry, mccHarrison),
-                        new FuzzyDateRange(
-                            new FuzzyDateTime(new DateTime(1939, 11, 7), "yyy/MM"),
-                            new FuzzyDateTime(new DateTime(1941, 4, 1), "yyy/MM")
-                        ),
-                        GetCitationPage(1, scrapBook),
-                        audit);
-
-            firstDerbyshireYeomanry.AddPersonel(commandFirstDerbyshireYeomanryPosting);
-            mccHarrison.AddAppointment(commandFirstDerbyshireYeomanryPosting);
+            { "Cleanup",        "g.V().drop()" },
+            { "AddVertex 1",    "g.addV('person').property('id', 'thomas').property('firstName', 'Thomas').property('age', 44).property('pk', 'pk')" },
+            { "AddVertex 2",    "g.addV('person').property('id', 'mary').property('firstName', 'Mary').property('lastName', 'Andersen').property('age', 39).property('pk', 'pk')" },
+            { "AddVertex 3",    "g.addV('person').property('id', 'ben').property('firstName', 'Ben').property('lastName', 'Miller').property('pk', 'pk')" },
+            { "AddVertex 4",    "g.addV('person').property('id', 'robin').property('firstName', 'Robin').property('lastName', 'Wakefield').property('pk', 'pk')" },
+            { "AddVertex 5",    "g.addV('person').property('id', 'robin2').property('firstName', 'Robin').property('lastName', 'Wakefield').property('pk', 'pk')" },
+            { "AddVertex 6",    "g.addV('person').property('id', 'robin2').property('firstName', 'Robin').property('lastName', 'Wakefield').property('pk', 'pk2')" },
+            { "AddEdge 1",      "g.V('thomas').addE('knows').to(g.V('mary'))" },
+            { "AddEdge 2",      "g.V('thomas').addE('knows').to(g.V('ben'))" },
+            { "AddEdge 3",      "g.V('ben').addE('knows').to(g.V('robin'))" },
+            { "UpdateVertex",   "g.V('thomas').property('age', 44)" },
+            { "CountVertices",  "g.V().count()" },
+            { "Filter Range",   "g.V().hasLabel('person').has('age', gt(40))" },
+            { "Project",        "g.V().hasLabel('person').values('firstName')" },
+            { "Sort",           "g.V().hasLabel('person').order().by('firstName', decr)" },
+            { "Traverse",       "g.V('thomas').out('knows').hasLabel('person')" },
+            { "Traverse 2x",    "g.V('thomas').out('knows').hasLabel('person').out('knows').hasLabel('person')" },
+            { "Loop",           "g.V('thomas').repeat(out()).until(has('id', 'robin')).path()" },
+            { "DropEdge",       "g.V('thomas').outE('knows').where(inV().has('id', 'mary')).drop()" },
+            { "CountEdges",     "g.E().count()" },
+            { "DropVertex",     "g.V('thomas').drop()" },
+        };
 
 
 
 
 
-
-
-            var ashbourneRoad = new SimplePostalAddress(null, new SimpleStreetAddress("Ashbourne Road"), derby, null, null, uk, null, null);
-            var ashbourneRoadPosting = new TemporalLocation(ashbourneRoad, new FuzzyDateRange(new FuzzyDateTime(new DateTime(1939, 11, 1), "yyyy/MM"), new FuzzyDateTime(new DateTime(1940, 05, 1), "yyyy/MM")),
-                GetCitationPage(2, scrapBook),
-                audit);
-
-            firstDerbyshireYeomanry.AddLocation(ashbourneRoadPosting);
-            mccHarrison.AddLocation(ashbourneRoadPosting);
-
-
-
-
-
-            var cavalryDivison = new TemporalRole(
-                new Cavalry(),
-                new FuzzyDateRange(
-                    mobilisationDate),
-                GetCitationPage(4, scrapBook),
-                audit);
-            var catterickGarrision = new SimplePostalAddress(null, null, catterick, null, null, uk, null, null);
-            var catterickGarrisionPosting = new TemporalLocation(catterickGarrision, new FuzzyDateRange(mobilisationDate, new FuzzyDateTime(new DateTime(1940, 05, 1), "yyyy/MM")),
-                GetCitationPage(4, scrapBook),
-                audit);
-
-            var firstCavalryDivision = new Division("1st Cavalry", armouredCar, uk,
-                GetCitationPage(4, scrapBook),
-                audit);
-            firstCavalryDivision.AddLocation(catterickGarrisionPosting);
-
-            var cocFirstDerbyshireYeomanry = new TemporalChainOfCommand(firstCavalryDivision, firstDerbyshireYeomanry, new FuzzyDateRange(mobilisationDate, new FuzzyDateTime(new DateTime(1940, 05, 1), "yyyy/MM")),
-                GetCitationPage(4, scrapBook),
-                audit);
-            firstCavalryDivision.AddHierarchy(cocFirstDerbyshireYeomanry);
-            firstDerbyshireYeomanry.AddHierarchy(cocFirstDerbyshireYeomanry);
-
-            var search = new FuzzyDateRange(new FuzzyDateTime(new DateTime(1939, 1, 1), "yyyy/MM/dd"), new FuzzyDateTime(new DateTime(1940, 12, 31), "yyyy/MM/dd"));
-
-
-            var aSquadron = new Squadron("A", armouredCar, uk, GetCitationPage(7, scrapBook), audit);
-            var bSquadron = new Squadron("B", armouredCar, uk, GetCitationPage(7, scrapBook), audit);
-            var cSquadron = new Squadron("C", armouredCar, uk, GetCitationPage(7, scrapBook), audit);
-            var dSquadron = new Squadron("D", armouredCar, uk, GetCitationPage(7, scrapBook), audit);
-
-
-            EstablishChainOfCommand(firstDerbyshireYeomanry, aSquadron, mobilisationDate, veDay, GetCitationPage(4, scrapBook), audit);
-            EstablishChainOfCommand(firstDerbyshireYeomanry, bSquadron, mobilisationDate, veDay, GetCitationPage(4, scrapBook), audit);
-            EstablishChainOfCommand(firstDerbyshireYeomanry, cSquadron, mobilisationDate, veDay, GetCitationPage(4, scrapBook), audit);
-            EstablishChainOfCommand(firstDerbyshireYeomanry, dSquadron, mobilisationDate, veDay, GetCitationPage(4, scrapBook), audit);
-
-            var caistor = new Municipality("Caistor");
-            var talbotArms = new SimplePostalAddress(null, new SimpleStreetAddress("16 High Street"), caistor, null, new SimplePostalCode("LN7 6QF"), uk, null, null);
-            var rotationStart = new DateTime(1939, 11, 27);
-            var rotationEnd = new DateTime(1940, 5, 24);
-            int rotation = 0;
-            while (rotationStart < rotationEnd)
-            {
-                var talbotArmsPostingRotation = new TemporalLocation(talbotArms, new FuzzyDateRange(new FuzzyDateTime(rotationStart, "yyyy/MM/dd"), 14),
-                   GetCitationPage(2, scrapBook),
-                   audit);
-                rotationStart = rotationStart.AddDays(14);
-                int i = rotation % 4;
-                switch(i)
-                {
-                    case 0:
-                        aSquadron.AddLocation(talbotArmsPostingRotation);
-                        entries.Add(GetEntry(aSquadron, talbotArmsPostingRotation));
-                        break;
-                    case 1:
-                        bSquadron.AddLocation(talbotArmsPostingRotation);
-                        entries.Add(GetEntry(bSquadron, talbotArmsPostingRotation));
-                        break;
-                    case 2:
-                        cSquadron.AddLocation(talbotArmsPostingRotation);
-                        entries.Add(GetEntry(cSquadron, talbotArmsPostingRotation));
-                        break;
-                    case 3:
-                        dSquadron.AddLocation(talbotArmsPostingRotation);
-                        entries.Add(GetEntry(dSquadron, talbotArmsPostingRotation));
-                        break;
-                }
-
-                rotation++;
-            }
-
-
-            entries.Add(GetEntry(firstDerbyshireYeomanry, firstDerbyshireYeomanry.Locations[0]));
-            entries.Add(GetEntry(firstDerbyshireYeomanry, firstDerbyshireYeomanry.Locations[1]));
-            entries.Add(GetEntry(mccHarrison, mccHarrison.Locations[0]));
-            entries.Add(GetEntry(firstCavalryDivision, firstCavalryDivision.Locations[0]));
-
-
-            return entries;
-        }
-
-        private static void EstablishChainOfCommand(AbstractOrganisation superior, AbstractOrganisation inferior, FuzzyDateTime from, FuzzyDateTime to, ICitation citation, IAudit audit)
-        {
-            var coc = new TemporalChainOfCommand(superior, inferior, new FuzzyDateRange(from, to),
-              citation,
-              audit);
-            inferior.AddHierarchy(coc);
-            superior.AddHierarchy(coc);
-        }
-
-        private static Entry GetEntry(IEntity entity, TemporalLocation temporalLocation)
-        {
-            return new Entry(entity, temporalLocation.Location, temporalLocation.DateTimeRange, temporalLocation.Citation, temporalLocation.Audit);
-        }
-
-        private static ICitation GetCitationPage(int page, IPublication publication)
-        {
-            return GetCitationPage(page, page, publication);
-        }
-
-        private static ICitation GetCitationPage(int firstPage, int lastPage, IPublication publication)
-        {
-            var key = $"{firstPage}-{lastPage}";
-            if (!citations.Keys.Contains(key))
-            {
-                citations[key] = new ApaCitation(new SimplePageRange(firstPage, lastPage), publication);
-            }
-
-            return citations[key];
-        }
     }
 }
 

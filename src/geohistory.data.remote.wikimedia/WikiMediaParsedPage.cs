@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-namespace Uk.Co.Itofinity.GeoHistory.Data.Remote.Wikimedia
+﻿namespace Uk.Co.Itofinity.GeoHistory.Data.Remote.Wikimedia
 {
     internal class WikiMediaParsedPage
     {

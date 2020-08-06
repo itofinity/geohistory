@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
-using System.Threading.Tasks;
-using Uk.Co.Itofinity.Geohistory.Model.Location;
-using Uk.Co.Itofinity.Geohistory.Model.Time;
+using Uk.Co.Itofinity.GeoHistory.Model.Location;
 
-namespace Uk.Co.Itofinity.Geohistory.Model
+namespace Uk.Co.Itofinity.GeoHistory.Model
 {
     public class RenderEntry
     {

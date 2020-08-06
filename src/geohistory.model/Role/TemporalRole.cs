@@ -1,8 +1,8 @@
-using Uk.Co.Itofinity.Geohistory.Model.Audit;
-using Uk.Co.Itofinity.Geohistory.Model.Citation;
-using Uk.Co.Itofinity.Geohistory.Model.Time;
+using Uk.Co.Itofinity.GeoHistory.Model.Audit;
+using Uk.Co.Itofinity.GeoHistory.Model.Citation;
+using Uk.Co.Itofinity.GeoHistory.Model.Time;
 
-namespace Uk.Co.Itofinity.Geohistory.Model.Role
+namespace Uk.Co.Itofinity.GeoHistory.Model.Role
 {
     public class TemporalRole : AbstractTemporal
     {

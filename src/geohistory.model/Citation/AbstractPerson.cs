@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Uk.Co.Itofinity.Geohistory.Model.Citation
+namespace Uk.Co.Itofinity.GeoHistory.Model.Citation
 {
     public abstract class AbstractPerson : IPerson
     {
-        
+
         // TODO magic string
         // TODO i18n
         public const string Unknown = "Unknown";

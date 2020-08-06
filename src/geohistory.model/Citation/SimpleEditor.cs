@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Uk.Co.Itofinity.Geohistory.Model.Citation
+namespace Uk.Co.Itofinity.GeoHistory.Model.Citation
 {
     public class SimpleEditor : AbstractPerson, IEditor
     {

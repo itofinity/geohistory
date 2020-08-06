@@ -1,9 +1,9 @@
 using System;
-namespace Uk.Co.Itofinity.Geohistory.Model.Time
+namespace Uk.Co.Itofinity.GeoHistory.Model.Time
 {
     public interface IFuzzyDateTime
     {
-        DateTime DateTime { get;}
+        DateTime DateTime { get; }
         string Format { get; }
 
         string ToYearString();

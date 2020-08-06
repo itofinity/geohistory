@@ -1,8 +1,8 @@
-namespace Uk.Co.Itofinity.Geohistory.Model.Citation
+namespace Uk.Co.Itofinity.GeoHistory.Model.Citation
 {
     public interface IPageRange
     {
         int? Start { get; }
-        int? End { get;}
+        int? End { get; }
     }
 }

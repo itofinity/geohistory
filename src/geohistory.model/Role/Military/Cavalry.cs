@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Uk.Co.Itofinity.Geohistory.Model.Organisation.Military;
+﻿using Uk.Co.Itofinity.GeoHistory.Model.Organisation.Military;
 
-namespace Uk.Co.Itofinity.Geohistory.Model.Role.Military
+namespace Uk.Co.Itofinity.GeoHistory.Model.Role.Military
 {
     public class Cavalry : IPurpose
     {

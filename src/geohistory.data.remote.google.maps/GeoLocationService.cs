@@ -1,17 +1,12 @@
-﻿using GoogleMapsApi.Entities.Directions.Request;
-using System;
-using System.Linq;
-using Uk.Co.Itofinity.Geohistory.Model;
-using Uk.Co.Itofinity.Geohistory.Model.Citation;
-using GoogleMapsApi.Entities.Common;
+﻿using GoogleMapsApi;
 using GoogleMapsApi.Entities.Directions.Request;
 using GoogleMapsApi.Entities.Directions.Response;
-using GoogleMapsApi;
-using GoogleMapsApi.Entities.Geocoding.Response;
 using GoogleMapsApi.Entities.Geocoding.Request;
+using GoogleMapsApi.Entities.Geocoding.Response;
 using System.Collections.Generic;
-using System.Runtime;
-using Uk.Co.Itofinity.Geohistory.Model.Location;
+using System.Linq;
+using Uk.Co.Itofinity.GeoHistory.Model;
+using Uk.Co.Itofinity.GeoHistory.Model.Location;
 
 namespace Uk.Co.Itofinity.GeoHistory.Data.Remote.Google.Maps
 {
@@ -42,7 +37,7 @@ namespace Uk.Co.Itofinity.GeoHistory.Data.Remote.Google.Maps
         {
             var geocodeResponse = GetGeocodeResponse(entry);
 
-            if(geocodeResponse == null)
+            if (geocodeResponse == null)
             {
                 return new LatitudeLongtitude();
             }
@@ -62,7 +57,7 @@ namespace Uk.Co.Itofinity.GeoHistory.Data.Remote.Google.Maps
             {
                 return points;
             }
-            
+
             directionsResponse.Routes.ToList()[0].Legs.ToList()[0].Steps.ToList().ForEach(s =>
             {
                 points.Add(new LatitudeLongtitude(s.StartLocation.Latitude, s.StartLocation.Longitude));
@@ -81,7 +76,7 @@ namespace Uk.Co.Itofinity.GeoHistory.Data.Remote.Google.Maps
 
         private T FindInCache<T>(string cacheKey)
         {
-            if(!this.cache.Keys.Contains(cacheKey))
+            if (!this.cache.Keys.Contains(cacheKey))
             {
                 return default(T);
             }
@@ -104,7 +99,7 @@ namespace Uk.Co.Itofinity.GeoHistory.Data.Remote.Google.Maps
             return GetGeocodeResponse(entry.Where);
         }
         private GeocodingResponse GetGeocodeResponse(ILocation where)
-        { 
+        {
             var cacheKey = where.Name.ToString() + "-geocoding";
             var cachedVal = FindInCache<GeocodingResponse>(cacheKey);
             if (cachedVal != null)
@@ -118,11 +113,11 @@ namespace Uk.Co.Itofinity.GeoHistory.Data.Remote.Google.Maps
             };
 
             geocodeRequest.ApiKey = this.apikey;
-            
+
             var geocodingEngine = GoogleMaps.Geocode;
-            
+
             GeocodingResponse geocode = geocodingEngine.Query(geocodeRequest);
-            
+
             if (geocode.Status == Status.OK)
             {
                 return AddToCache(cacheKey, geocode);

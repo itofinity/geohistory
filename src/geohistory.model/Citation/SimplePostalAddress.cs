@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace Uk.Co.Itofinity.Geohistory.Model.Citation
+namespace Uk.Co.Itofinity.GeoHistory.Model.Citation
 {
     public class SimplePostalAddress : IPostalAddress
     {
@@ -66,12 +66,12 @@ namespace Uk.Co.Itofinity.Geohistory.Model.Citation
         public string ToShortString()
         {
             var parts = new List<string>();
-            if(Locality != null
+            if (Locality != null
                 && !string.IsNullOrWhiteSpace(Locality.ToString()))
             {
                 parts.Add(Locality.ToString());
             }
-            if(AdministrativeRegion != null
+            if (AdministrativeRegion != null
                 && !string.IsNullOrWhiteSpace(AdministrativeRegion.ToString()))
             {
                 parts.Add(AdministrativeRegion.ToString());

@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
-using Uk.Co.Itofinity.Geohistory.Model;
 
-namespace Uk.Co.Itofinity.Geohistory.Model
+namespace Uk.Co.Itofinity.GeoHistory.Model
 {
     public class EntryComparator : IComparer<Entry>
     {
         public int Compare(Entry x, Entry y)
         {
-            if(x == null && y == null)
+            if (x == null && y == null)
             {
                 return 0;
             }
@@ -29,7 +28,7 @@ namespace Uk.Co.Itofinity.Geohistory.Model
 
             //if (!x.When.Equals(y.When))
             //{
-                return x.What.Locations[0].StartDateTime.DateTime.CompareTo(y.What.Locations[0].StartDateTime.DateTime);
+            return x.What.Locations[0].StartDateTime.DateTime.CompareTo(y.What.Locations[0].StartDateTime.DateTime);
             //}
         }
     }

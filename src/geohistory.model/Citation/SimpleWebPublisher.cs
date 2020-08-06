@@ -1,8 +1,8 @@
 using System;
 
-namespace Uk.Co.Itofinity.Geohistory.Model.Citation
+namespace Uk.Co.Itofinity.GeoHistory.Model.Citation
 {
-    public class SimpleWebPublisher: IPublisher
+    public class SimpleWebPublisher : IPublisher
     {
         public SimpleWebPublisher(Uri uri)
         {

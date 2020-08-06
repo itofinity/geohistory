@@ -1,10 +1,7 @@
 using System.Collections.Generic;
-using System.Globalization;
-using Uk.Co.Itofinity.Geohistory.Model.Organisation;
-using Uk.Co.Itofinity.Geohistory.Model.People;
-using Uk.Co.Itofinity.Geohistory.Model.Role;
+using Uk.Co.Itofinity.GeoHistory.Model.Role;
 
-namespace Uk.Co.Itofinity.Geohistory.Model
+namespace Uk.Co.Itofinity.GeoHistory.Model
 {
     public interface IOrganisation : IEntity
     {

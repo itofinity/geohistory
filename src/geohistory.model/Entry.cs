@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using Uk.Co.Itofinity.Geohistory.Model.Audit;
-using Uk.Co.Itofinity.Geohistory.Model.Citation;
-using Uk.Co.Itofinity.Geohistory.Model.Location;
-using Uk.Co.Itofinity.Geohistory.Model.People;
-using Uk.Co.Itofinity.Geohistory.Model.Time;
+using Uk.Co.Itofinity.GeoHistory.Model.Audit;
+using Uk.Co.Itofinity.GeoHistory.Model.Citation;
+using Uk.Co.Itofinity.GeoHistory.Model.Location;
+using Uk.Co.Itofinity.GeoHistory.Model.Time;
 
-namespace Uk.Co.Itofinity.Geohistory.Model
+namespace Uk.Co.Itofinity.GeoHistory.Model
 {
     public class Entry : Dictionary<string, object>
     {

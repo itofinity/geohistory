@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using Uk.Co.Itofinity.Geohistory.Model;
-using Uk.Co.Itofinity.Geohistory.Model;
-using Uk.Co.Itofinity.Geohistory.Model.Audit;
-using Uk.Co.Itofinity.Geohistory.Model.Citation;
-using Uk.Co.Itofinity.Geohistory.Model.Location;
-using Uk.Co.Itofinity.Geohistory.Model.Organisation.Military;
-using Uk.Co.Itofinity.Geohistory.Model.Time;
 using Uk.Co.Itofinity.GeoHistory.Data.Remote.Google.Maps;
-using Uk.Co.Itofinity.GeoHistory.Data.Remote.Wikimedia;
+using Uk.Co.Itofinity.GeoHistory.Model;
+using Uk.Co.Itofinity.GeoHistory.Model.Citation;
+using Uk.Co.Itofinity.GeoHistory.Model.Location;
 
 namespace Uk.Co.Itofinity.GeoHistory.SpikeOne
 {
@@ -82,9 +75,10 @@ namespace Uk.Co.Itofinity.GeoHistory.SpikeOne
 
         private static void FixEndDate(List<TemporalLocation> locations)
         {
-            locations.ForEach(l => {
+            locations.ForEach(l =>
+            {
                 var index = locations.IndexOf(l);
-                if(l.EndDateTime == null && locations.Count >= index + 1)
+                if (l.EndDateTime == null && locations.Count >= index + 1)
                 {
                     var next = locations[index + 1];
                     l.DateTimeRange.FixEndDate(next.StartDateTime);

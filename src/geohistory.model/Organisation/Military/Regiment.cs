@@ -1,11 +1,9 @@
-using System;
 using System.Globalization;
-using Uk.Co.Itofinity.Geohistory.Model.Audit;
-using Uk.Co.Itofinity.Geohistory.Model.Citation;
-using Uk.Co.Itofinity.Geohistory.Model.Location;
-using Uk.Co.Itofinity.Geohistory.Model.Role;
+using Uk.Co.Itofinity.GeoHistory.Model.Audit;
+using Uk.Co.Itofinity.GeoHistory.Model.Citation;
+using Uk.Co.Itofinity.GeoHistory.Model.Role;
 
-namespace Uk.Co.Itofinity.Geohistory.Model.Organisation.Military
+namespace Uk.Co.Itofinity.GeoHistory.Model.Organisation.Military
 {
     public class Regiment : AbstractOrganisation
     {

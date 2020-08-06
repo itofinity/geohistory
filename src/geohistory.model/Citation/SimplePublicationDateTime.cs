@@ -1,11 +1,11 @@
 using System;
-using Uk.Co.Itofinity.Geohistory.Model.Time;
+using Uk.Co.Itofinity.GeoHistory.Model.Time;
 
-namespace Uk.Co.Itofinity.Geohistory.Model.Citation
+namespace Uk.Co.Itofinity.GeoHistory.Model.Citation
 {
-    public class SimplePublicationDateTime: FuzzyDateTime
+    public class SimplePublicationDateTime : FuzzyDateTime
     {
-        public SimplePublicationDateTime(DateTime dateTime, string format) : base (dateTime, format)
+        public SimplePublicationDateTime(DateTime dateTime, string format) : base(dateTime, format)
         {
         }
     }

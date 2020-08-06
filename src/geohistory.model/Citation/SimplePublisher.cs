@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Uk.Co.Itofinity.Geohistory.Model.Citation
+namespace Uk.Co.Itofinity.GeoHistory.Model.Citation
 {
-    public class SimplePublisher: IPublisher
+    public class SimplePublisher : IPublisher
     {
         public SimplePublisher(string name, IPostalAddress postalAddress)
         {
@@ -17,13 +17,13 @@ namespace Uk.Co.Itofinity.Geohistory.Model.Citation
             PostalAddresses = postalAddresses;
         }
 
-        public string Name { get;}
+        public string Name { get; }
 
         public IPostalAddress PostalAddress
         {
             get
             {
-                if(!PostalAddresses.Any())
+                if (!PostalAddresses.Any())
                 {
                     return SimplePostalAddress.Empty;
                 }

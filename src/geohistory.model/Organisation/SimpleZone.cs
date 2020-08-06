@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Uk.Co.Itofinity.Geohistory.Model.Organisation
+﻿namespace Uk.Co.Itofinity.GeoHistory.Model.Organisation
 {
     public class SimpleZone : IZone
     {

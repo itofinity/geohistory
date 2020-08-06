@@ -1,6 +1,6 @@
 using System;
 
-namespace Uk.Co.Itofinity.Geohistory.Model.Time
+namespace Uk.Co.Itofinity.GeoHistory.Model.Time
 {
     public class FuzzyDateTime : IFuzzyDateTime
 

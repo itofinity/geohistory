@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Uk.Co.Itofinity.Geohistory.Model.Organisation.Military
+﻿namespace Uk.Co.Itofinity.GeoHistory.Model.Organisation.Military
 {
     public static class Glossary
     {
@@ -19,7 +15,7 @@ namespace Uk.Co.Itofinity.Geohistory.Model.Organisation.Military
         public static readonly string Cavalry = "Cavalry";
 
         public static readonly string Brigadier = "Brigadier";
-        public static readonly string LieutenantColonel ="Lieutenant-Colonel";
+        public static readonly string LieutenantColonel = "Lieutenant-Colonel";
         public static readonly string Person = "Person";
     }
 }

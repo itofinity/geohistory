@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Uk.Co.Itofinity.Geohistory.Model.Audit
+﻿namespace Uk.Co.Itofinity.GeoHistory.Model.Audit
 {
     public interface IAudit
     {

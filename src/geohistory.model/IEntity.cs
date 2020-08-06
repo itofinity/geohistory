@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
-using Uk.Co.Itofinity.Geohistory.Model.Audit;
-using Uk.Co.Itofinity.Geohistory.Model.Citation;
-using Uk.Co.Itofinity.Geohistory.Model.Location;
-using Uk.Co.Itofinity.Geohistory.Model.Organisation;
-using Uk.Co.Itofinity.Geohistory.Model.Role;
+using Uk.Co.Itofinity.GeoHistory.Model.Audit;
+using Uk.Co.Itofinity.GeoHistory.Model.Citation;
+using Uk.Co.Itofinity.GeoHistory.Model.Location;
+using Uk.Co.Itofinity.GeoHistory.Model.Organisation;
+using Uk.Co.Itofinity.GeoHistory.Model.Role;
 
-namespace Uk.Co.Itofinity.Geohistory.Model
+namespace Uk.Co.Itofinity.GeoHistory.Model
 {
     public interface IEntity : INamed, ICited, IAudited
     {

@@ -6,15 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Uk.Co.Itofinity.Geohistory.Model;
-using Uk.Co.Itofinity.Geohistory.Model.Citation;
-using Uk.Co.Itofinity.Geohistory.Model.Location;
-using Uk.Co.Itofinity.Geohistory.Model.Organisation;
-using Uk.Co.Itofinity.Geohistory.Model.Role;
-using Uk.Co.Itofinity.Geohistory.Model.Time;
 using Uk.Co.Itofinity.GeoHistory.Data.Remote.Wikimedia;
+using Uk.Co.Itofinity.GeoHistory.Model;
+using Uk.Co.Itofinity.GeoHistory.Model.Citation;
+using Uk.Co.Itofinity.GeoHistory.Model.Location;
+using Uk.Co.Itofinity.GeoHistory.Model.Organisation;
+using Uk.Co.Itofinity.GeoHistory.Model.Time;
 
 namespace Uk.Co.Itofinity.GeoHistory.Render.Kml
 {
@@ -67,7 +65,7 @@ namespace Uk.Co.Itofinity.GeoHistory.Render.Kml
             this._filePath = filePath;
             this._document = new Document();
 
-            _document.AddFeature(new Folder() { Id = "Units", Name = "Units" }); 
+            _document.AddFeature(new Folder() { Id = "Units", Name = "Units" });
             _document.AddFeature(new Folder() { Id = "ZonesOfControl", Name = "ZonesOfControl" });
             _document.AddFeature(new Folder() { Id = "ZonesOfInfluence", Name = "ZonesOfInfluence" });
             _document.AddFeature(new Folder() { Id = "LinesOfCommand", Name = "LinesOfCommand" });
@@ -117,7 +115,7 @@ namespace Uk.Co.Itofinity.GeoHistory.Render.Kml
             var linesOfCommand = await GetLinesOfCommand(re);
             var linesOfCommands = _document.FindFeature("LinesOfCommand") as Folder;
             linesOfCommand.ForEach(loc => linesOfCommands.AddFeature(loc));
-            
+
             var routesTo = _document.FindFeature("RoutesTo") as Folder;
             var pathTo = await GetRouteTo(re);
             if (pathTo != null)
@@ -135,21 +133,22 @@ namespace Uk.Co.Itofinity.GeoHistory.Render.Kml
                 return placemarks;
             }
 
-            
 
-            
+
+
 
             data.Entry.What.Hierarchy
                 .Where(h => h.Superior.Equals(data.Entry.What))
                 .Where(h => WasPresent(data.Entry.When.StartDateTime.DateTime, data.Entry.When.EndDateTime?.DateTime, h.StartDateTime.DateTime, h.EndDateTime?.DateTime))
                 .ToList()
-                .ForEach(h => {
+                .ForEach(h =>
+                {
                     var superiorLocation = data.Entry.Where;
                     if (!superiorLocation.Latitude.HasValue || !superiorLocation.Longtitude.HasValue)
                     {
                         return;
                     }
-                    
+
 
                     var inferiorLocations = h.Inferior.Locations.Where(l => WasPresent(l.StartDateTime.DateTime, l.EndDateTime?.DateTime, h.StartDateTime.DateTime, h.EndDateTime?.DateTime)).ToList();
                     inferiorLocations.ForEach(il =>
@@ -175,14 +174,14 @@ namespace Uk.Co.Itofinity.GeoHistory.Render.Kml
                         placemarks.Add(placemark);
 
                     });
-                    
+
 
                 });
 
 
-            
 
-                return placemarks;
+
+            return placemarks;
 
         }
 
@@ -320,7 +319,7 @@ namespace Uk.Co.Itofinity.GeoHistory.Render.Kml
 
         private static Polygon GetInfluencePolygon(double? possibleLatitude, double? possibleLongtitude, double radius)
         {
-            if(!possibleLatitude.HasValue || !possibleLongtitude.HasValue)
+            if (!possibleLatitude.HasValue || !possibleLongtitude.HasValue)
             {
                 return null;
             }
@@ -445,7 +444,7 @@ namespace Uk.Co.Itofinity.GeoHistory.Render.Kml
                 return string.Empty;
             }
 
-            var unitSymbolUrl =  await symbolFactory.GetUnitSymbolUrl(organisation.Roles[0].Role.Name);
+            var unitSymbolUrl = await symbolFactory.GetUnitSymbolUrl(organisation.Roles[0].Role.Name);
             // "Reconnaissance");
 
             var unitSizeUrl = await symbolFactory.GetUnitSizeUrl(organisation.Size); // "Regiment_or_Group");
@@ -465,7 +464,7 @@ namespace Uk.Co.Itofinity.GeoHistory.Render.Kml
 
             return $"{String.Join(" ", peopleOfInterest.ToArray())}<br/>\r\n";
         }
-    
+
 
         private static AddressData GetAddressData(Entry entry)
         {

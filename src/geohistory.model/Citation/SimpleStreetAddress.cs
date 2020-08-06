@@ -1,4 +1,4 @@
-namespace Uk.Co.Itofinity.Geohistory.Model.Citation
+namespace Uk.Co.Itofinity.GeoHistory.Model.Citation
 {
     public class SimpleStreetAddress : IStreetAddress
     {
@@ -7,8 +7,8 @@ namespace Uk.Co.Itofinity.Geohistory.Model.Citation
         private int v2;
         private string v3;
 
-        public int? Number{ get; }
-        public int? EndNumber{ get; }
+        public int? Number { get; }
+        public int? EndNumber { get; }
         private string StreetOne { get; }
 
         public SimpleStreetAddress(string street)
@@ -29,7 +29,7 @@ namespace Uk.Co.Itofinity.Geohistory.Model.Citation
 
         public override string ToString()
         {
-            var numbers = (Number.HasValue ? Number.Value.ToString() : "")  + (EndNumber.HasValue ? "-" + EndNumber.Value.ToString() : "");
+            var numbers = (Number.HasValue ? Number.Value.ToString() : "") + (EndNumber.HasValue ? "-" + EndNumber.Value.ToString() : "");
             return $"{numbers} {StreetOne}";
         }
     }

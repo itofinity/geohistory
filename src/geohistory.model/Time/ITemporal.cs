@@ -1,7 +1,7 @@
-﻿using Uk.Co.Itofinity.Geohistory.Model.Audit;
-using Uk.Co.Itofinity.Geohistory.Model.Citation;
+﻿using Uk.Co.Itofinity.GeoHistory.Model.Audit;
+using Uk.Co.Itofinity.GeoHistory.Model.Citation;
 
-namespace Uk.Co.Itofinity.Geohistory.Model.Time
+namespace Uk.Co.Itofinity.GeoHistory.Model.Time
 {
     public interface ITemporal : INamed, ICited, IAudited
     {

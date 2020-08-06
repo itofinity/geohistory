@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace Uk.Co.Itofinity.Geohistory.Model.Organisation.Military
+namespace Uk.Co.Itofinity.GeoHistory.Model.Organisation.Military
 {
     public class Battalion : AbstractOrganisation
     {

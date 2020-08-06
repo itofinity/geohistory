@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Uk.Co.Itofinity.Geohistory.Model.Citation;
+﻿using System.Collections.Generic;
 
-namespace Uk.Co.Itofinity.Geohistory.Model.Citation
+namespace Uk.Co.Itofinity.GeoHistory.Model.Citation
 {
     public class UnknownAuthors : List<IAuthor>
     {
