@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Uk.Co.Itofinity.GeoHistory.Model.Time;
+using UK.CO.Itofinity.GeoHistory.Model.Time;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Citation
+namespace UK.CO.Itofinity.GeoHistory.Model.Citation
 {
     public class SimpleWebsite : IPublication
     {

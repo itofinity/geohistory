@@ -1,7 +1,7 @@
-using Uk.Co.Itofinity.GeoHistory.Model.Organisation.Military;
-using Uk.Co.Itofinity.GeoHistory.Model.People;
+using UK.CO.Itofinity.GeoHistory.Model.Organisation.Military;
+using UK.CO.Itofinity.GeoHistory.Model.People;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Role.Military
+namespace UK.CO.Itofinity.GeoHistory.Model.Role.Military
 {
     public class Brigadier : AbstractMilitaryAppointment
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 
-namespace geohistory.client.Models
+namespace UK.CO.Itofinity.GeoHistory.Client.Web.Models
 {
     public class ItemRepository : IItemRepository
     {

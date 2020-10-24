@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Citation
+namespace UK.CO.Itofinity.GeoHistory.Model.Citation
 {
     public class SimplePublisher : IPublisher
     {

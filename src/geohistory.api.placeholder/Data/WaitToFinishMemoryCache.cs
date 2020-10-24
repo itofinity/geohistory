@@ -1,13 +1,13 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using geohistory.spi.Data;
+using Microsoft.Extensions.Caching.Memory;
+using UK.CO.Itofinity.GeoHistory.Spi.Data;
 
-namespace geohistory.api.placeholder.Data
+namespace UK.CO.Itofinity.GeoHistory.Api.Placeholder.Data
 {
     /// <summary>
     /// <see cref="https://michaelscodingspot.com/cache-implementations-in-csharp-net/"/>
@@ -17,6 +17,12 @@ namespace geohistory.api.placeholder.Data
     {
         private MemoryCache _cache = new MemoryCache(new MemoryCacheOptions());
         private ConcurrentDictionary<object, SemaphoreSlim> _locks = new ConcurrentDictionary<object, SemaphoreSlim>();
+
+        public string GenerateKey(params object[] parts)
+        {
+            Console.Out.WriteLine(string.Join("X", parts));
+            return string.Join(string.Empty, parts.Select(p => p.ToString())).GetHashCode().ToString();  
+        }
 
         public async Task<TItem> GetOrCreate(object key, Func<Task<TItem>> createItem)
         {

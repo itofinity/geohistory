@@ -1,6 +1,6 @@
-﻿using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Core;
+﻿using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Core;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.People
+namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.People
 {
     public class WhoDidWhat : Relationship
     {

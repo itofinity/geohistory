@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Audit;
-using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Publication;
+using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Audit;
+using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Publication;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain
+namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain
 {
     public abstract class AbstractCitedAuditedEntity : AbstractIdentifiableEntity
     {
@@ -28,7 +28,7 @@ namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain
         {
             var entries = InitEntries();
 
-            entries.Add(GetIdentifiableScript().Build());
+            entries.Add(GetAddIdentifiableScript().Build());
 
             return entries;
         }

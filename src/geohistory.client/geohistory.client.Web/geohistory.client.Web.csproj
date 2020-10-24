@@ -1,13 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>73449d70-a051-4487-b092-db9702e3349d</UserSecretsId>
+    <RootNamespace>UK.CO.Itofinity.GeoHistory.Client.Web</RootNamespace>
+    <AssemblyName>Geohistory.Client.Web</AssemblyName>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description />
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.0.0" />
+    <PackageReference Include="JsonNet.PrivateSettersContractResolvers.Source" Version="0.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.AzureKeyVault.HostingStartup" Version="2.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.7" />
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\GeoHistory.Client.Spi\GeoHistory.Client.Spi.csproj" />
+    <ProjectReference Include="..\..\Geohistory.Client.Api\Geohistory.Client.Api.csproj" />
+    <ProjectReference Include="..\..\geohistory.model.graph.gremlin\Geohistory.Model.Graph.Gremlin.csproj" />
+    <ProjectReference Include="..\..\geohistory.spi\Geohistory.Spi.csproj" />
+    <ProjectReference Include="..\..\Itofinity.Gremlin.Tinkerpop\Itofinity.Gremlin.Tinkerpop.csproj" />
   </ItemGroup>
 
 </Project>

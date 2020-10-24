@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Uk.Co.Itofinity.GeoHistory.Data.Remote.Wikimedia
+namespace UK.CO.Itofinity.GeoHistory.Data.Remote.Wikimedia
 {
     public class WikimediaImageFactory
     {

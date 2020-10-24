@@ -4,7 +4,7 @@ using System.Web;
 
 using static tinkerpop.scripts.ScriptBuilder;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Location
+namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Location
 {
     public abstract class AbstractLocation : AbstractPropertyEntity, ILocation
     {

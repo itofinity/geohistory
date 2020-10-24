@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web;
-using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain;
-using static tinkerpop.scripts.ScriptBuilder;
+using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain;
+using UK.CO.Itofinity.GeoHistory.Spi.Core;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Core.Time
+namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Core.Time
 {
-    public class FuzzyDateTime : AbstractPropertyEntity
+    public class FuzzyDateTime : AbstractPropertyEntity, IFuzzyDateTime
     {
         public const string Label = "datetime";
 
@@ -16,6 +15,9 @@ namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Core.Time
 
         public FuzzyDateTime(DateTime dateTime, string format, string citationId, string auditSessionId) : base(dateTime.ToUniversalTime().Ticks.ToString(), Label, new Dictionary<string, object> { { "datetime", dateTime.ToString(format) },  { "ticks", dateTime.ToUniversalTime().Ticks }, { "format", format } }, citationId, auditSessionId)
         {
+            DateTime = dateTime;
         }
+
+        public DateTime DateTime { get; }
     }
 }

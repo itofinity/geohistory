@@ -1,10 +1,10 @@
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
-using Uk.Co.Itofinity.GeoHistory.Model.Citation;
+using UK.CO.Itofinity.GeoHistory.Model.Citation;
 using Xunit;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.test.unit.citation
+namespace UK.CO.Itofinity.GeoHistory.Model.test.unit.citation
 {
     /// taken from https://pitt.libguides.com/c.php?g=12108&p=64730
     public class ApaCitationTest

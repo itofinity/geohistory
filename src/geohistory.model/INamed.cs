@@ -1,4 +1,4 @@
-﻿namespace Uk.Co.Itofinity.GeoHistory.Model
+﻿namespace UK.CO.Itofinity.GeoHistory.Model
 {
     public interface INamed
     {

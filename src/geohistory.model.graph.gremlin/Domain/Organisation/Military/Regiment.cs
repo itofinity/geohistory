@@ -1,7 +1,7 @@
-﻿using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Audit;
-using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Publication;
+﻿using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Audit;
+using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Publication;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Organisation.Military
+namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Organisation.Military
 {
     public class Regiment : Unit
     {

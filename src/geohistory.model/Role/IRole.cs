@@ -1,4 +1,4 @@
-namespace Uk.Co.Itofinity.GeoHistory.Model.Role
+namespace UK.CO.Itofinity.GeoHistory.Model.Role
 {
     public interface IRole : INamed
     {

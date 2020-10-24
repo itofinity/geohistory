@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\geohistory.data.remote.google.books\geohistory.data.remote.google.books.csproj" />
+    <ProjectReference Include="..\geohistory.data.remote.google.books\GeoHistory.Data.Books.Remote.Google.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace geohistory.client.Models
+namespace UK.CO.Itofinity.GeoHistory.Client.Web.Models
 {
     public class Item
     {

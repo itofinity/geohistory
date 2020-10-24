@@ -1,7 +1,10 @@
-﻿namespace tinkerpop.scripts
+﻿using System.Net;
+
+namespace tinkerpop.scripts
 {
     public static class ScriptClauses
     {
+        public static string value(string value) => $"'{value}'";
         public static string gt(int threshold) => $"gt({threshold})";
         public static string gt(long threshold) => $"gt({threshold})";
 

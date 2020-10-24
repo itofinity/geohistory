@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model
+namespace UK.CO.Itofinity.GeoHistory.Model
 {
     public class EntryComparator : IComparer<Entry>
     {

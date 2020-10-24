@@ -1,4 +1,4 @@
-﻿namespace Uk.Co.Itofinity.GeoHistory.Model.Organisation
+﻿namespace UK.CO.Itofinity.GeoHistory.Model.Organisation
 {
     public class SimpleZone : IZone
     {

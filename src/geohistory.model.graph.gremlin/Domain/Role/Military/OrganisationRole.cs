@@ -1,4 +1,4 @@
-﻿namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Role.Military
+﻿namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Role.Military
 {
     public class OrganisationRole : AbstractIdentifiableEntity
     {

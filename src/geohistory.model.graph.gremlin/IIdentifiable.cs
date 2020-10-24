@@ -1,4 +1,4 @@
-﻿namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin
+﻿namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin
 {
     public interface IIdentifiable
     {

@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Uk.Co.Itofinity.GeoHistory.Model;
-using Uk.Co.Itofinity.GeoHistory.Model.Audit;
-using Uk.Co.Itofinity.GeoHistory.Model.Citation;
-using Uk.Co.Itofinity.GeoHistory.Model.Location;
-using Uk.Co.Itofinity.GeoHistory.Model.Organisation;
-using Uk.Co.Itofinity.GeoHistory.Model.Organisation.Military;
-using Uk.Co.Itofinity.GeoHistory.Model.People;
-using Uk.Co.Itofinity.GeoHistory.Model.Role;
-using Uk.Co.Itofinity.GeoHistory.Model.Role.Military;
-using Uk.Co.Itofinity.GeoHistory.Model.Time;
-using Uk.Co.Itofinity.GeoHistory.Render.Kml;
+using UK.CO.Itofinity.GeoHistory.Model;
+using UK.CO.Itofinity.GeoHistory.Model.Audit;
+using UK.CO.Itofinity.GeoHistory.Model.Citation;
+using UK.CO.Itofinity.GeoHistory.Model.Location;
+using UK.CO.Itofinity.GeoHistory.Model.Organisation;
+using UK.CO.Itofinity.GeoHistory.Model.Organisation.Military;
+using UK.CO.Itofinity.GeoHistory.Model.People;
+using UK.CO.Itofinity.GeoHistory.Model.Role;
+using UK.CO.Itofinity.GeoHistory.Model.Role.Military;
+using UK.CO.Itofinity.GeoHistory.Model.Time;
+using UK.CO.Itofinity.GeoHistory.Render.Kml;
 
-namespace Uk.Co.Itofinity.GeoHistory.SpikeOne
+namespace UK.CO.Itofinity.GeoHistory.SpikeOne
 {
     public class MemoryData
     {

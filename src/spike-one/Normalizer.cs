@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Uk.Co.Itofinity.GeoHistory.Data.Remote.Google.Maps;
-using Uk.Co.Itofinity.GeoHistory.Model;
-using Uk.Co.Itofinity.GeoHistory.Model.Citation;
-using Uk.Co.Itofinity.GeoHistory.Model.Location;
+using UK.CO.Itofinity.GeoHistory.Data.Remote.Google.Maps;
+using UK.CO.Itofinity.GeoHistory.Model;
+using UK.CO.Itofinity.GeoHistory.Model.Citation;
+using UK.CO.Itofinity.GeoHistory.Model.Location;
 
-namespace Uk.Co.Itofinity.GeoHistory.SpikeOne
+namespace UK.CO.Itofinity.GeoHistory.SpikeOne
 {
     public class Normalizer
     {

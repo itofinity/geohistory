@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Uk.Co.Itofinity.GeoHistory.Model.Role;
+using UK.CO.Itofinity.GeoHistory.Model.Role;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model
+namespace UK.CO.Itofinity.GeoHistory.Model
 {
     public interface IOrganisation : IEntity
     {

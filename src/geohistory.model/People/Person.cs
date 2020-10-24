@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Uk.Co.Itofinity.GeoHistory.Model.Audit;
-using Uk.Co.Itofinity.GeoHistory.Model.Citation;
-using Uk.Co.Itofinity.GeoHistory.Model.Location;
-using Uk.Co.Itofinity.GeoHistory.Model.Organisation;
-using Uk.Co.Itofinity.GeoHistory.Model.Organisation.Military;
-using Uk.Co.Itofinity.GeoHistory.Model.Role;
+using UK.CO.Itofinity.GeoHistory.Model.Audit;
+using UK.CO.Itofinity.GeoHistory.Model.Citation;
+using UK.CO.Itofinity.GeoHistory.Model.Location;
+using UK.CO.Itofinity.GeoHistory.Model.Organisation;
+using UK.CO.Itofinity.GeoHistory.Model.Organisation.Military;
+using UK.CO.Itofinity.GeoHistory.Model.Role;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.People
+namespace UK.CO.Itofinity.GeoHistory.Model.People
 {
     public class Person : IEntity
     {

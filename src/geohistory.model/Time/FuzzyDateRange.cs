@@ -1,4 +1,4 @@
-﻿namespace Uk.Co.Itofinity.GeoHistory.Model.Time
+﻿namespace UK.CO.Itofinity.GeoHistory.Model.Time
 {
     public class FuzzyDateRange : IFuzzyDateTimeRange
     {

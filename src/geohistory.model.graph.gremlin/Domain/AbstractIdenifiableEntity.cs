@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web;
 using tinkerpop.scripts;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain
+namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain
 {
     public abstract class AbstractIdentifiableEntity : AbstractNamedEntity, IIdentifiable
     {
@@ -15,13 +16,23 @@ namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain
         public override List<string> ToInsertQueries()
         {
             var entries = new List<string>();
-            entries.Add(GetIdentifiableScript().Build());
+            entries.Add(GetAddIdentifiableScript().Build());
             return entries;
         }
 
-        protected ScriptBuilder GetIdentifiableScript()
+        public override string ToFindQuery()
         {
-            return GetNamedVertexScript()
+            return GetFindIdentifiableScript().Build();
+        }
+
+        private ScriptBuilder GetFindIdentifiableScript()
+        {
+            return GetFindNamedVertexScript();
+        }
+
+        protected ScriptBuilder GetAddIdentifiableScript()
+        {
+            return GetAddNamedVertexScript()
                             .property("id", Id);
         }
     }

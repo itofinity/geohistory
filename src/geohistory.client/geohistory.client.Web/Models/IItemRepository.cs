@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace geohistory.client.Models
+namespace UK.CO.Itofinity.GeoHistory.Client.Web.Models
 {
     public interface IItemRepository
     {

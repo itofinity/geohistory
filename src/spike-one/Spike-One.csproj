@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>Uk.Co.Itofinity.GeoHistory.SpikeOne</RootNamespace>
+    <RootNamespace>UK.CO.Itofinity.GeoHistory.SpikeOne</RootNamespace>
     <AssemblyName>GeoHistory.SpikeOne</AssemblyName>
   </PropertyGroup>
 
@@ -21,9 +21,10 @@
   <ItemGroup>
     <ProjectReference Include="..\geohistory.data.remote.google.maps\geohistory.data.remote.google.maps.csproj" />
     <ProjectReference Include="..\geohistory.data.remote.wikimedia\geohistory.data.remote.wikimedia.csproj" />
-    <ProjectReference Include="..\geohistory.model.graph.gremlin\geohistory.model.graph.gremlin.csproj" />
+    <ProjectReference Include="..\geohistory.model.graph.gremlin\Geohistory.Model.Graph.Gremlin.csproj" />
     <ProjectReference Include="..\geohistory.model\geohistory.model.csproj" />
     <ProjectReference Include="..\geohistory.render.kml\geohistory.render.kml.csproj" />
+    <ProjectReference Include="..\geohistory.spi\Geohistory.Spi.csproj" />
     <ProjectReference Include="..\tinkerpop.scripts\tinkerpop.scripts.csproj" />
   </ItemGroup>
 

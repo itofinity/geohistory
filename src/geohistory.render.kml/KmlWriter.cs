@@ -7,14 +7,14 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
-using Uk.Co.Itofinity.GeoHistory.Data.Remote.Wikimedia;
-using Uk.Co.Itofinity.GeoHistory.Model;
-using Uk.Co.Itofinity.GeoHistory.Model.Citation;
-using Uk.Co.Itofinity.GeoHistory.Model.Location;
-using Uk.Co.Itofinity.GeoHistory.Model.Organisation;
-using Uk.Co.Itofinity.GeoHistory.Model.Time;
+using UK.CO.Itofinity.GeoHistory.Data.Remote.Wikimedia;
+using UK.CO.Itofinity.GeoHistory.Model;
+using UK.CO.Itofinity.GeoHistory.Model.Citation;
+using UK.CO.Itofinity.GeoHistory.Model.Location;
+using UK.CO.Itofinity.GeoHistory.Model.Organisation;
+using UK.CO.Itofinity.GeoHistory.Model.Time;
 
-namespace Uk.Co.Itofinity.GeoHistory.Render.Kml
+namespace UK.CO.Itofinity.GeoHistory.Render.Kml
 {
     public class KmlWriter : IDisposable
     {

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Web;
 using tinkerpop.scripts;
-using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Audit;
-using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Publication;
+using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Audit;
+using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Publication;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain
+namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain
 {
     public abstract class AbstractPropertyEntity : AbstractCitedAuditedEntity
     {
@@ -26,7 +26,7 @@ namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain
 
         protected ScriptBuilder GetPropertiesScript()
         {
-            var script = GetIdentifiableScript();
+            var script = GetAddIdentifiableScript();
             foreach (var entry in Properties)
             {
                 script.property(entry.Key, entry.Value);

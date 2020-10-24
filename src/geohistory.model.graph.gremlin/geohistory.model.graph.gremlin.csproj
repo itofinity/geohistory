@@ -2,10 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin</RootNamespace>
+    <RootNamespace>UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\geohistory.spi\Geohistory.Spi.csproj" />
     <ProjectReference Include="..\tinkerpop.scripts\tinkerpop.scripts.csproj" />
   </ItemGroup>
 

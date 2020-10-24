@@ -1,7 +1,7 @@
 using System.Globalization;
 using Xunit;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.test.unit.citation
+namespace UK.CO.Itofinity.GeoHistory.Model.test.unit.citation
 {
     public class EntryTest
     {

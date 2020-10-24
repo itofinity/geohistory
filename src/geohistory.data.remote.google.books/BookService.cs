@@ -1,24 +1,19 @@
-﻿using geohistory.api.placeholder.Data;
-using geohistory.spi.Data;
-using Google.Apis.Books.v1;
+﻿using Google.Apis.Books.v1;
 using Google.Apis.Services;
-using Microsoft.Extensions.Caching.Memory;
-using System;
-using System.Collections.Generic;
+using UK.CO.Itofinity.GeoHistory.Spi.Data;
 
-namespace geohistory.data.remote.google.books
+namespace UK.CO.Itofinity.GeoHistory.Data.Books.Remote.Google
 {
-    public class BookService
+    public class BookService : IBookService
     {
         private readonly string apiKey;
-        private ICache<object> cache = new WaitToFinishMemoryCache<object>();
 
         public BookService(string apikey)
         {
             this.apiKey = apikey;
         }
 
-        public async System.Threading.Tasks.Task<Google.Apis.Books.v1.Data.Volumes> Query(string query)
+        public async System.Threading.Tasks.Task<global::Google.Apis.Books.v1.Data.Volumes> Query(string query, int startIndex, int maxResults)
         {
             var service = new BooksService(new BaseClientService.Initializer()
             {
@@ -26,7 +21,9 @@ namespace geohistory.data.remote.google.books
                 ApplicationName = this.GetType().ToString()
             });
             var listreq = service.Volumes.List();
-            listreq.Q = "mailed fist";
+            listreq.Q = query;
+            listreq.MaxResults = maxResults;
+            listreq.StartIndex = startIndex;
             return await listreq.ExecuteAsync();
         }
         

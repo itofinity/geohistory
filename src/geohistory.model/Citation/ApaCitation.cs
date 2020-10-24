@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Citation
+namespace UK.CO.Itofinity.GeoHistory.Model.Citation
 {
     /// see https://pitt.libguides.com/c.php?g=12108&p=64730
     public class ApaCitation : ICitation

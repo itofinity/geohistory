@@ -1,4 +1,4 @@
-﻿namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Location
+﻿namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Location
 {
     public class Country : AbstractLocation
     {

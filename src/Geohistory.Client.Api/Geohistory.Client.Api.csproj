@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>UK.CO.Itofinity.GeoHistory.Client.Api</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GeoHistory.Client.Spi\GeoHistory.Client.Spi.csproj" />
+    <ProjectReference Include="..\geohistory.data.remote.google.books\GeoHistory.Data.Books.Remote.Google.csproj" />
+    <ProjectReference Include="..\Itofinity.Gremlin.Tinkerpop\Itofinity.Gremlin.Tinkerpop.csproj" />
+  </ItemGroup>
+
+</Project>

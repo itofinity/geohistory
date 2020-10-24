@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using static tinkerpop.scripts.ScriptBuilder;
 using static tinkerpop.scripts.ScriptClauses;
 
-namespace Uk.Co.Itofinity.GeoHistory.SpikeOne
+namespace UK.CO.Itofinity.GeoHistory.SpikeOne
 {
     class Program
     {

@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using Uk.Co.Itofinity.GeoHistory.Model.Audit;
-using Uk.Co.Itofinity.GeoHistory.Model.Citation;
-using Uk.Co.Itofinity.GeoHistory.Model.Location;
-using Uk.Co.Itofinity.GeoHistory.Model.Role;
+using UK.CO.Itofinity.GeoHistory.Model.Audit;
+using UK.CO.Itofinity.GeoHistory.Model.Citation;
+using UK.CO.Itofinity.GeoHistory.Model.Location;
+using UK.CO.Itofinity.GeoHistory.Model.Role;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Organisation.Military
+namespace UK.CO.Itofinity.GeoHistory.Model.Organisation.Military
 {
     public abstract class AbstractOrganisation : IOrganisation
     {

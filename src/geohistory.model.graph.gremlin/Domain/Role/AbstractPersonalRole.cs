@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 using static tinkerpop.scripts.ScriptBuilder;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Role
+namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Role
 {
     public abstract class AbstractPersonalRole : IPersonalRole
     {
@@ -15,6 +15,11 @@ namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Role
         public string Name { get; }
 
         public string Id => HttpUtility.UrlEncode(Name);
+
+        public string ToFindQuery()
+        {
+            throw new NotImplementedException();
+        }
 
         public List<string> ToInsertQueries()
         {

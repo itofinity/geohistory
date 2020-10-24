@@ -1,4 +1,4 @@
-namespace Uk.Co.Itofinity.GeoHistory.Model.Citation
+namespace UK.CO.Itofinity.GeoHistory.Model.Citation
 {
     public class SimpleStreetAddress : IStreetAddress
     {

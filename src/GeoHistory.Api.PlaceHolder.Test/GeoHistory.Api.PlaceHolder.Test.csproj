@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\geohistory.api.placeholder\geohistory.api.placeholder.csproj" />
+    <ProjectReference Include="..\geohistory.api.placeholder\GeoHistory.Api.Placeholder.csproj" />
   </ItemGroup>
 
   <ItemGroup>

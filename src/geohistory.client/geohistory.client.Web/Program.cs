@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace geohistory.client.Web
+namespace UK.CO.Itofinity.GeoHistory.Client.Web
 {
     public class Program
     {

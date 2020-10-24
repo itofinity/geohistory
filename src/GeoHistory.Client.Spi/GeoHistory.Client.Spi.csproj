@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>UK.CO.Itofinity.GeoHistory.Client.Spi</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\geohistory.model.graph.gremlin\Geohistory.Model.Graph.Gremlin.csproj" />
+    <ProjectReference Include="..\geohistory.spi\Geohistory.Spi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Model\Domain\" />
+  </ItemGroup>
+
+</Project>

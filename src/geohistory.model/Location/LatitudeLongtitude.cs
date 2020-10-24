@@ -1,4 +1,4 @@
-﻿namespace Uk.Co.Itofinity.GeoHistory.Model.Location
+﻿namespace UK.CO.Itofinity.GeoHistory.Model.Location
 {
     public class LatitudeLongtitude
     {

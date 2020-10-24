@@ -1,6 +1,6 @@
-using Uk.Co.Itofinity.GeoHistory.Model.Location;
+using UK.CO.Itofinity.GeoHistory.Model.Location;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Citation
+namespace UK.CO.Itofinity.GeoHistory.Model.Citation
 {
     public interface IAddress : ILocation
     {

@@ -1,4 +1,4 @@
-﻿namespace Uk.Co.Itofinity.GeoHistory.Model.Audit
+﻿namespace UK.CO.Itofinity.GeoHistory.Model.Audit
 {
     public interface IAudit
     {

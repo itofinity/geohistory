@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using tinkerpop.scripts;
 using static tinkerpop.scripts.ScriptBuilder;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain
+namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain
 {
     public abstract class AbstractEntity : IQuery, ITyped
     {
@@ -13,6 +13,11 @@ namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain
         }
 
         public string Type { get; }
+
+        public string ToFindQuery()
+        {
+            throw new NotImplementedException();
+        }
 
         public virtual List<string> ToInsertQueries()
         {

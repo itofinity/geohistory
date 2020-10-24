@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uk.Co.Itofinity.GeoHistory.Render.Kml
+namespace UK.CO.Itofinity.GeoHistory.Render.Kml
 {
     public struct Vector
     {

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 
 namespace tinkerpop.scripts
 {
@@ -171,9 +172,10 @@ namespace tinkerpop.scripts
             return this;
         }
 
-        public ScriptBuilder values(string property)
+        public ScriptBuilder values(params string[] properties)
         {
-            _builder.Append($".values('{property}')");
+            var args = properties.ToList().Select(p => $"'{p}'");
+            _builder.Append($".values({string.Join(",", args)})");
             return this;
         }
 

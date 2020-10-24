@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Core;
+using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Core;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Role.Military
+namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Role.Military
 {
     public class ActedAsDuring : Relationship
     {

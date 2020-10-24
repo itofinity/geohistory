@@ -1,23 +1,19 @@
-﻿using GoogleMapsApi.Entities.Geocoding.Response;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using tinkerpop.scripts.Engine;
-using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin;
-using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Core.Time;
-using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain;
-using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Audit;
-using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Location;
-using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Organisation;
-using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Organisation.Military;
-using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.People;
-using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Publication;
-using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Role.Military;
-using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Time;
+using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin;
+using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Core.Time;
+using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Audit;
+using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Location;
+using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Organisation.Commercial;
+using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.People;
+using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Publication;
+using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Time;
 
 using static tinkerpop.scripts.ScriptBuilder;
 using static tinkerpop.scripts.ScriptClauses;
 
-namespace Uk.Co.Itofinity.GeoHistory.SpikeOne
+namespace UK.CO.Itofinity.GeoHistory.SpikeOne
 {
     public class GremlinData
     {
@@ -26,7 +22,7 @@ namespace Uk.Co.Itofinity.GeoHistory.SpikeOne
         private const string DEFAULT_HOSTNAME = "localhost";
         private const int DEFAULT_PORT = 8901;
         private const string DEFAULT_AUTHKEY = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
-        private const string DEFAULT_DATABASE = "sandbox1";
+        private const string DEFAULT_DATABASE = "sandbox1 NOT USED";
         private const string DEFAULT_COLLECTION = "container1";
 
         public static void run()
@@ -99,7 +95,7 @@ namespace Uk.Co.Itofinity.GeoHistory.SpikeOne
             entries.AddRange(auditSessionAndQueries.Queries);
             var auditSession = auditSessionAndQueries.Instance;
 
-            var scrapbook = new Book("1st Derbyshire Yeomanry Scrapbook 1939 - 1947");
+            var scrapbook = new Publication("1st Derbyshire Yeomanry Scrapbook 1939 - 1947", null, null);
             entries.AddRange(scrapbook.ToInsertQueries());
 
             var citation1 = new Citation(scrapbook.Name, 1, auditSession.Id);

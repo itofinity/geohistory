@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using geohistory.client.Models;
+using UK.CO.Itofinity.GeoHistory.Client.Web.Models;
 
-namespace geohistory.client.Controllers
+namespace UK.CO.Itofinity.GeoHistory.Client.Web.Controllers
 {
     [Route("api/item")]
     [ApiController]

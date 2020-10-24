@@ -1,9 +1,9 @@
 using System.Globalization;
-using Uk.Co.Itofinity.GeoHistory.Model.Audit;
-using Uk.Co.Itofinity.GeoHistory.Model.Citation;
-using Uk.Co.Itofinity.GeoHistory.Model.Role;
+using UK.CO.Itofinity.GeoHistory.Model.Audit;
+using UK.CO.Itofinity.GeoHistory.Model.Citation;
+using UK.CO.Itofinity.GeoHistory.Model.Role;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Organisation.Military
+namespace UK.CO.Itofinity.GeoHistory.Model.Organisation.Military
 {
     public class Squadron : AbstractOrganisation
     {

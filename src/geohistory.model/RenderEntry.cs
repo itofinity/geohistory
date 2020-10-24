@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using Uk.Co.Itofinity.GeoHistory.Model.Location;
+using UK.CO.Itofinity.GeoHistory.Model.Location;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model
+namespace UK.CO.Itofinity.GeoHistory.Model
 {
     public class RenderEntry
     {

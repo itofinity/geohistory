@@ -1,4 +1,4 @@
-﻿namespace Uk.Co.Itofinity.GeoHistory.Render.Kml
+﻿namespace UK.CO.Itofinity.GeoHistory.Render.Kml
 {
     internal class Metadata
     {

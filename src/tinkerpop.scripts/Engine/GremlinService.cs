@@ -4,6 +4,7 @@ using Gremlin.Net.Structure.IO.GraphSON;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using static tinkerpop.scripts.ScriptBuilder;
@@ -59,6 +60,7 @@ namespace tinkerpop.scripts.Engine
 
             // Create async task to execute the Gremlin query.
             var resultSet = SubmitRequest(gremlinClient, query).Result;
+
             if (resultSet.Count > 0)
             {
                 System.Console.WriteLine("\tResult:");
@@ -79,11 +81,11 @@ namespace tinkerpop.scripts.Engine
             System.Console.WriteLine();
         }
 
-        public Task<ResultSet<dynamic>> SubmitRequest(GremlinClient gremlinClient, string query)
+        public Task<ResultSet<Dictionary<string, object>>> SubmitRequest(GremlinClient gremlinClient, string query)
         {
             try
             {
-                return gremlinClient.SubmitAsync<dynamic>(query);
+                return gremlinClient.SubmitAsync<Dictionary<string, object>>(query);
             }
             catch (ResponseException e)
             {

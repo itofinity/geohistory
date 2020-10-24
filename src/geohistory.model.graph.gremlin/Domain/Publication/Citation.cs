@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Audit;
+using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Audit;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Publication
+namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Publication
 {
     public class Citation : AbstractPropertyEntity
     {

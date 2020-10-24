@@ -1,15 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using geohistory.client.Models;
+using UK.CO.Itofinity.GeoHistory.Client.Web.Utils;
 
-namespace geohistory.client.Web
+namespace UK.CO.Itofinity.GeoHistory.Client.Web
 {
     public class Startup
     {
@@ -24,7 +20,8 @@ namespace geohistory.client.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<IItemRepository, ItemRepository>();
+            // Wire up 
+            services.AddServices();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

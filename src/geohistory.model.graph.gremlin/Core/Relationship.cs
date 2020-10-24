@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Publication;
+using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Publication;
 using static tinkerpop.scripts.ScriptBuilder;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Core
+namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Core
 {
     public class Relationship : IQuery
     {
@@ -49,6 +49,11 @@ namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Core
             script.property("auditSessionId", AuditSessionId);
             queries.Add(script.Build());
             return queries;
+        }
+
+        public string ToFindQuery()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

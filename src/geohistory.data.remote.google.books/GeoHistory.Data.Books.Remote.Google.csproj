@@ -1,7 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>UK.CO.Itofinity.GeoHistory.Data.Books.Remote.Google</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\geohistory.api.placeholder\geohistory.api.placeholder.csproj" />
+    <ProjectReference Include="..\geohistory.api.placeholder\GeoHistory.Api.Placeholder.csproj" />
   </ItemGroup>
 
 </Project>

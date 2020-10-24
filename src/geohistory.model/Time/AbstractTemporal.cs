@@ -1,7 +1,7 @@
-using Uk.Co.Itofinity.GeoHistory.Model.Audit;
-using Uk.Co.Itofinity.GeoHistory.Model.Citation;
+using UK.CO.Itofinity.GeoHistory.Model.Audit;
+using UK.CO.Itofinity.GeoHistory.Model.Citation;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Time
+namespace UK.CO.Itofinity.GeoHistory.Model.Time
 {
     public abstract class AbstractTemporal : ITemporal
     {

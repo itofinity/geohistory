@@ -5,10 +5,10 @@ using GoogleMapsApi.Entities.Geocoding.Request;
 using GoogleMapsApi.Entities.Geocoding.Response;
 using System.Collections.Generic;
 using System.Linq;
-using Uk.Co.Itofinity.GeoHistory.Model;
-using Uk.Co.Itofinity.GeoHistory.Model.Location;
+using UK.CO.Itofinity.GeoHistory.Model;
+using UK.CO.Itofinity.GeoHistory.Model.Location;
 
-namespace Uk.Co.Itofinity.GeoHistory.Data.Remote.Google.Maps
+namespace UK.CO.Itofinity.GeoHistory.Data.Remote.Google.Maps
 {
     public class GeoLocationService
     {

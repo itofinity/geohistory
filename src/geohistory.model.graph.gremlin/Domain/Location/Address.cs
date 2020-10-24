@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Location
+namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Location
 {
     public class Address : AbstractCitedAuditedEntity
     {

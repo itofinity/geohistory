@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Graph.Gremlin
+namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin
 {
     public interface IQuery
     {
+        string ToFindQuery();
         List<string> ToInsertQueries();
     }
 }

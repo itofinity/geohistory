@@ -1,8 +1,8 @@
-using Uk.Co.Itofinity.GeoHistory.Model.Audit;
-using Uk.Co.Itofinity.GeoHistory.Model.Citation;
-using Uk.Co.Itofinity.GeoHistory.Model.Time;
+using UK.CO.Itofinity.GeoHistory.Model.Audit;
+using UK.CO.Itofinity.GeoHistory.Model.Citation;
+using UK.CO.Itofinity.GeoHistory.Model.Time;
 
-namespace Uk.Co.Itofinity.GeoHistory.Model.Organisation
+namespace UK.CO.Itofinity.GeoHistory.Model.Organisation
 {
     public class TemporalChainOfCommand : AbstractTemporal
     {

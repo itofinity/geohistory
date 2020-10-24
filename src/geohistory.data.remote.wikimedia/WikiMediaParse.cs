@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Uk.Co.Itofinity.GeoHistory.Data.Remote.Wikimedia
+namespace UK.CO.Itofinity.GeoHistory.Data.Remote.Wikimedia
 {
     public class WikiMediaParse
     {
