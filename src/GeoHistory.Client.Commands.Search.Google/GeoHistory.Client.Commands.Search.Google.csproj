@@ -1,19 +1,20 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>UK.CO.Itofinity.GeoHistory.Client.Api</RootNamespace>
+    <RootNamespace>UK.CO.GeoHistory.Client.Commands.Search.Google</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />
+    <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.20371.2" />
     <PackageReference Include="System.ComponentModel.Composition" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GeoHistory.Client.Spi\GeoHistory.Client.Spi.csproj" />
+    <ProjectReference Include="..\Geohistory.Client.Api\Geohistory.Client.Api.csproj" />
+    <ProjectReference Include="..\GeoHistory.Client.Commands.Search\GeoHistory.Client.Commands.Search.csproj" />
     <ProjectReference Include="..\geohistory.data.remote.google.books\GeoHistory.Data.Books.Remote.Google.csproj" />
-    <ProjectReference Include="..\Itofinity.Gremlin.Tinkerpop\Itofinity.Gremlin.Tinkerpop.csproj" />
   </ItemGroup>
 
 </Project>

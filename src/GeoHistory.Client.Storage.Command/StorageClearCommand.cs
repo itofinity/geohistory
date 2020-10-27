@@ -4,14 +4,17 @@ using System.Text;
 using System.CommandLine;
 using UK.CO.Itofinity.GeoHistory.Client.Spi.Service;
 using System.CommandLine.Invocation;
+using System.ComponentModel.Composition;
 
-namespace UK.CO.Itofinity.GeoHistory.Client.UI.Cli.Commands.Storage
+namespace UK.CO.Itofinity.GeoHistory.Client.Commands.Storage
 {
-    public class StorageClearCommand : Command
+    [Export(typeof(IStorageCommand))]
+    public class StorageClearCommand : Command, IStorageCommand
     {
         public const string NAME = "clear";
         public const string DESCRIPTION = "clear storage";
 
+        [ImportingConstructor]
         public StorageClearCommand(IStorageService storageService) : base(NAME, DESCRIPTION)
         {
             StorageService = storageService ?? throw new ArgumentNullException(nameof(storageService));

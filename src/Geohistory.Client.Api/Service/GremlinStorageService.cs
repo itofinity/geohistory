@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Threading.Tasks;
 using Itofinity.Geohistory.Spi.Domain;
@@ -12,6 +13,7 @@ using static tinkerpop.scripts.ScriptClauses;
 
 namespace UK.CO.Itofinity.GeoHistory.Client.Api.Service
 {
+    [Export(typeof(IStorageService))]
     public class GremlinStorageService : IStorageService
     {
         // Azure Cosmos DB Configuration variables

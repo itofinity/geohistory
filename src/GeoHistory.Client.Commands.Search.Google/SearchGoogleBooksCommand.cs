@@ -18,14 +18,17 @@ using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Time;
 using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.People;
 using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin;
 using UK.CO.Itofinity.GeoHistory.Spi.Domain.People;
+using System.ComponentModel.Composition;
 
-namespace Geohistory.Client.UI.Cli
+namespace UK.CO.GeoHistory.Client.Commands.Search.Google
 {
-    internal class SearchGoogleBooksCommand : Command
+    [Export(typeof(ISearchCommand))]
+    internal class SearchGoogleBooksCommand : Command, ISearchCommand
     {
-        public const string NAME = "search";
+        public const string NAME = "publication";
         public const string DESCRIPTION = "err search to do with publications";
 
+        [ImportingConstructor]
         public SearchGoogleBooksCommand(IStorageService storageService) :base(NAME, DESCRIPTION)
         {
             StorageService = storageService ?? throw new ArgumentNullException(nameof(storageService));

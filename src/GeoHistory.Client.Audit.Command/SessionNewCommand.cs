@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.CommandLine;
@@ -10,14 +10,17 @@ using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Publication;
 using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Time;
 using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.People;
 using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Core.Time;
+using System.ComponentModel.Composition;
 
-namespace UK.CO.Itofinity.GeoHistory.Client.UI.Cli.Commands.Audit
+namespace UK.CO.Itofinity.GeoHistory.Client.Commands.Audit
 {
-    public class SessionNewCommand : Command
+    [Export(typeof(ISessionCommand))]
+    public class SessionNewCommand : Command, ISessionCommand
     {
         public const string NAME = "new";
         public const string DESCRIPTION = "new session";
 
+        [ImportingConstructor]
         public SessionNewCommand(IStorageService storageService) : base(NAME, DESCRIPTION)
         {
             StorageService = storageService ?? throw new ArgumentNullException(nameof(storageService));
@@ -35,7 +38,17 @@ namespace UK.CO.Itofinity.GeoHistory.Client.UI.Cli.Commands.Audit
 
                 await storageService.StoreAsync(items);
 
-                System.Console.Out.WriteLine($"Audit Session ID [{auditSessionId}]");
+                items.ForEach(i => 
+                    {
+                        var identifiable = i as IIdentifiable;
+                        var typed = i as ITyped;
+                        if (typed != null && identifiable != null)
+                        {
+                            System.Console.Out.WriteLine($"Added [{typed.Type}] with ID [{identifiable.Id}]");
+                        }
+                        else
+                            System.Console.Out.WriteLine(i);
+                    });
             });
         }
 
@@ -49,18 +62,18 @@ namespace UK.CO.Itofinity.GeoHistory.Client.UI.Cli.Commands.Audit
             var auditSession = new AuditSession(title);
             queries.Add(auditSession);
 
-            //var citation = new Citation("Audit Session_" + title, auditSession.Id);
-            //queries.Add(citation);
+            var citation = new Citation("Audit Session_" + title, auditSession.Id);
+            queries.Add(citation);
 
-            //var auditor = new Auditor(name, name, new List<char>(), email, citation.Id, auditSession.Id);
-            //queries.Add(auditor);
+            var auditor = new Auditor(name, name, new List<char>(), email, citation.Id, auditSession.Id);
+            queries.Add(auditor);
             
 
-            //var auditDate = new FuzzyDateTime(date, citation.Id, auditSession.Id);
-            //queries.Add(auditDate);
+            var auditDate = new FuzzyDateTime(date, citation.Id, auditSession.Id);
+            queries.Add(auditDate);
 
-            //queries.Add(new WhatHappenedWhen(auditSession.Id, auditDate.Id, citation.Id, auditSession.Id));
-            //queries.Add(new WhoDidWhat(auditor.Id, auditSession.Id, citation.Id, auditSession.Id));
+            queries.Add(new WhatHappenedWhen(auditSession.Id, auditDate.Id, citation.Id, auditSession.Id));
+            queries.Add(new WhoDidWhat(auditor.Id, auditSession.Id, citation.Id, auditSession.Id));
 
             return queries;
         }

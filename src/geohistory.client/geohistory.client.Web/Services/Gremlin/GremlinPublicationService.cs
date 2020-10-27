@@ -60,6 +60,11 @@ namespace UK.CO.Itofinity.GeoHistory.Client.Web.Services.Gremlin
             throw new NotImplementedException();
         }
 
+        public Task DeleteAsync(string type, string id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<object> ListByTypeAsync(string type)
         {
             throw new NotImplementedException();

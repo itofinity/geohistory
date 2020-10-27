@@ -135,11 +135,11 @@ namespace UK.CO.Itofinity.GeoHistory.SpikeOne
             */
 
 
-            var variousPerson = new Person("Various");
+            var variousPerson = new Person("Various", citation1.Id, auditSession.Id);
             entries.AddRange(variousPerson.ToInsertQueries());
             entries.AddRange(new Authored(variousPerson.Id, scrapbook.Id, citation1.Id, auditSession.Id).ToInsertQueries());
 
-            var unknownPerson = new Person("Unknown");
+            var unknownPerson = new Person("Unknown", citation1.Id, auditSession.Id);
             entries.AddRange(unknownPerson.ToInsertQueries());
             entries.AddRange(new Edited(unknownPerson.Id, scrapbook.Id, citation1.Id, auditSession.Id).ToInsertQueries());
 
@@ -370,11 +370,11 @@ entries.Add(GetEntry(firstCavalryDivision, firstCavalryDivision.Locations[0]));
             var auditSession = new AuditSession(title);
             queries.AddRange(auditSession.ToInsertQueries());
 
-            var auditor = new Auditor(name, name, new List<char>(), email);
-            queries.AddRange(auditor.ToInsertQueries());
-
             var citation = new Citation("Audit Session_" + title, auditSession.Id);
             queries.AddRange(citation.ToInsertQueries());
+
+            var auditor = new Auditor(name, name, new List<char>(), email, citation.Id, auditSession.Id);
+            queries.AddRange(auditor.ToInsertQueries());
 
             var auditDate = new FuzzyDateTime(date, citation.Id, auditSession.Id);
             queries.AddRange(auditDate.ToInsertQueries());

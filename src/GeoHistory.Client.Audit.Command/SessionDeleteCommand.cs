@@ -5,14 +5,17 @@ using System.CommandLine;
 using UK.CO.Itofinity.GeoHistory.Client.Spi.Service;
 using System.CommandLine.Invocation;
 using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Audit;
+using System.ComponentModel.Composition;
 
-namespace UK.CO.Itofinity.GeoHistory.Client.UI.Cli.Commands.Audit
+namespace UK.CO.Itofinity.GeoHistory.Client.Commands.Audit
 {
-    public class SessionDeleteCommand : Command
+    [Export(typeof(ISessionCommand))]
+    public class SessionDeleteCommand : Command, ISessionCommand
     {
         public const string NAME = "delete";
         public const string DESCRIPTION = "delete session";
 
+        [ImportingConstructor]
         public SessionDeleteCommand(IStorageService storageService) : base(NAME, DESCRIPTION)
         {
             StorageService = storageService ?? throw new ArgumentNullException(nameof(storageService));

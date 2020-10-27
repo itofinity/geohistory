@@ -13,7 +13,7 @@ using UK.CO.Itofinity.GeoHistory.Data.Books.Remote.Google;
 using static Google.Apis.Books.v1.Data.Volume;
 using UK.CO.Itofinity.GeoHistory.Spi.Domain.People;
 
-namespace UK.CO.Itofinity.GeoHistory.Client.Api.Service
+namespace UK.CO.GeoHistory.Client.Commands.Search.Google
 {
     public class GoogleBooksSearchService : ISearchService<Tuple<IPublication, IPublisher, IEnumerable<IPerson>>>
     {

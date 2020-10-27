@@ -7,13 +7,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Commands\**" />
+    <EmbeddedResource Remove="Commands\**" />
+    <None Remove="Commands\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="PluginLoadContext.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.20371.2" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Geohistory.Client.Api\Geohistory.Client.Api.csproj" />
+    <ProjectReference Include="..\GeoHistory.Client.Audit.Command\GeoHistory.Client.Audit.Command.csproj" />
+    <ProjectReference Include="..\GeoHistory.Client.Commands.Search.Google\GeoHistory.Client.Commands.Search.Google.csproj" />
+    <ProjectReference Include="..\GeoHistory.Client.Commands.Search\GeoHistory.Client.Commands.Search.csproj" />
     <ProjectReference Include="..\GeoHistory.Client.Spi\GeoHistory.Client.Spi.csproj" />
+    <ProjectReference Include="..\GeoHistory.Client.Storage.Command\GeoHistory.Client.Storage.Command.csproj" />
     <ProjectReference Include="..\geohistory.model.graph.gremlin\Geohistory.Model.Graph.Gremlin.csproj" />
   </ItemGroup>
 

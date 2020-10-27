@@ -2,7 +2,7 @@
   "profiles": {
     "Geohistory.Client.UI.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "publication search --term \"the tunisian campaign\" --maxCount 20"
+      "commandLineArgs": "storage list --type publication"
     }
   }
 }

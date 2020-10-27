@@ -6,19 +6,17 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using UK.CO.Itofinity.GeoHistory.Client.Spi.Service;
 
-namespace UK.CO.Itofinity.GeoHistory.Client.Commands.Audit
+namespace UK.CO.GeoHistory.Client.Commands.Search
 {
     [Export(typeof(ICommand))]
-    internal class SessionCommand : Command
+    internal class SearchCommand : Command
     {
-        public const string NAME = "session";
-        public const string DESCRIPTION = "err stuff to do with session";
+        public const string NAME = "search";
+        public const string DESCRIPTION = "err stuff to do with search";
 
         [ImportingConstructor]
-        public SessionCommand(IStorageService storageService, [ImportMany] IEnumerable<ISessionCommand> subCommands) :base(NAME, DESCRIPTION)
+        public SearchCommand([ImportMany] IEnumerable<ISearchCommand> subCommands) :base(NAME, DESCRIPTION)
         {
-            StorageService = storageService ?? throw new ArgumentNullException(nameof(storageService));
-
             this.Handler = CommandHandler.Create(() =>
             {
                 /* do something */
@@ -27,7 +25,5 @@ namespace UK.CO.Itofinity.GeoHistory.Client.Commands.Audit
             });
             subCommands.ToList().ForEach(sc => this.Add((Symbol)sc));
         }
-
-        public IStorageService StorageService { get; }
     }
 }
