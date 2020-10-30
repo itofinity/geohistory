@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>UK.CO.Geohistory.Client.Commands.Gremlin</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.20371.2" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GeoHistory.Client.Spi\GeoHistory.Client.Spi.csproj" />
+    <ProjectReference Include="..\Itofinity.Gremlin.Tinkerpop\Itofinity.Gremlin.Tinkerpop.csproj" />
+  </ItemGroup>
+
+</Project>

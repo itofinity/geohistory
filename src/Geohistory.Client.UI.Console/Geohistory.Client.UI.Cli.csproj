@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Geohistory.Client.Api\Geohistory.Client.Api.csproj" />
     <ProjectReference Include="..\GeoHistory.Client.Audit.Command\GeoHistory.Client.Audit.Command.csproj" />
+    <ProjectReference Include="..\Geohistory.Client.Commands.Gremlin\Geohistory.Client.Commands.Gremlin.csproj" />
     <ProjectReference Include="..\GeoHistory.Client.Commands.Search.Google\GeoHistory.Client.Commands.Search.Google.csproj" />
     <ProjectReference Include="..\GeoHistory.Client.Commands.Search\GeoHistory.Client.Commands.Search.csproj" />
     <ProjectReference Include="..\GeoHistory.Client.Spi\GeoHistory.Client.Spi.csproj" />

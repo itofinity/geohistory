@@ -6,6 +6,8 @@ using Gremlin.Net.Structure.IO.GraphSON;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -99,6 +101,8 @@ namespace Itofinity.Gremlin.Tinkerpop
 
         public async Task<List<T>> RunQueries<T>(List<string> queries)
         {
+            Log($"#{DateTime.Now.ToString("yyyy-MM-dd'T'HH:mm:ss.fffzzz", DateTimeFormatInfo.InvariantInfo)}");
+
             var results = await Task.WhenAll(queries.Select(async q => await RunQuery<T>(q)));
             return results.SelectMany(r => r).ToList();
         }
@@ -106,13 +110,13 @@ namespace Itofinity.Gremlin.Tinkerpop
         private GremlinServer GetGremlinServer()
         {
             return new GremlinServer(Hostname, Port, enableSsl: false,
-                                                                            username: "/dbs/" + Database + "/colls/" + Collection,
-                                                                            password: AuthKey);
+                    username: "/dbs/" + Database + "/colls/" + Collection,
+                    password: AuthKey);
         }
 
-        public async Task<List<T>> RunQuery<T>(GremlinClient gremlinClient, string query)
+        private async Task<List<T>> RunQuery<T>(GremlinClient gremlinClient, string query)
         {
-            System.Console.WriteLine(String.Format("Running this query: {0}", query));
+            Log(query);
 
             // Create async task to execute the Gremlin query.
             var resultSet = await SubmitRequest<T>(gremlinClient, query);
@@ -121,6 +125,14 @@ namespace Itofinity.Gremlin.Tinkerpop
 
             // Filter
             return resultSet.ToList();
+        }
+
+        private static void Log(string query)
+        {
+            using (StreamWriter w = File.AppendText("gremlin.script"))
+            {
+                w.WriteLine(query);
+            }
         }
 
         private static void LogResultSet<T>(ResultSet<T> resultSet)
@@ -145,7 +157,7 @@ namespace Itofinity.Gremlin.Tinkerpop
             System.Console.WriteLine();
         }
 
-        public Task<ResultSet<T>> SubmitRequest<T>(GremlinClient gremlinClient, string query)
+        private Task<ResultSet<T>> SubmitRequest<T>(GremlinClient gremlinClient, string query)
         {
             try
             {
