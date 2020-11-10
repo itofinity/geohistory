@@ -9,7 +9,16 @@ namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain
 {
     public abstract class AbstractPropertyEntity : AbstractCitedAuditedEntity
     {
-        protected AbstractPropertyEntity(string name, string type, Dictionary<string, object> properties, string citationId, string auditSessionId) : base(name, type, citationId, auditSessionId)
+        protected AbstractPropertyEntity(string name, string type, Dictionary<string, object> properties, string auditSessionId) : base(name, type, auditSessionId)
+        {
+            Properties = properties ?? throw new ArgumentNullException(nameof(properties));
+        }
+        protected AbstractPropertyEntity(string name, string type, Dictionary<string, object> properties, string publicationId, string auditSessionId) : base(name, type, publicationId, auditSessionId)
+        {
+            Properties = properties ?? throw new ArgumentNullException(nameof(properties));
+        }
+
+        protected AbstractPropertyEntity(string name, string type, Dictionary<string, object> properties, string publicationId, int startPage, int endPage, string auditSessionId) : base(name, type, publicationId, startPage, endPage, auditSessionId)
         {
             Properties = properties ?? throw new ArgumentNullException(nameof(properties));
         }

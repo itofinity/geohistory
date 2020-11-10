@@ -4,7 +4,7 @@
     {
         public const string Label = "municipality";
 
-        public Municipality(string name, string citationId, string auditSessionId) : base(name, Label, citationId, auditSessionId)
+        public Municipality(string name, string publicationId, int startPage, int endPage, string auditSessionId) : base(name, Label, publicationId, startPage, endPage, auditSessionId)
         {
         }
     }

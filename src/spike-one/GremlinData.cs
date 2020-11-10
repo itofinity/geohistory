@@ -189,9 +189,10 @@ namespace UK.CO.Itofinity.GeoHistory.SpikeOne
                 audit);
 
             */
-            /*
+            
 
-            var firstDerbyshireYeomanry = new Unit("1st Derbyshire Yeomanry", "regiment", citation1.Id, auditSession.Id);
+            //var firstDerbyshireYeomanry = new Unit("1st Derbyshire Yeomanry", "regiment", citation1.Id, auditSession.Id);
+            /*
             //var firstDerbyshireYeomanry = new Regiment("1st Derbyshire Yeomanry", citation1, auditSession);
             var reconnaissance = new OrganisationRole("reconnaissance");
 

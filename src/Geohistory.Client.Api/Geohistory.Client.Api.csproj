@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Itofinity.Gremlin.Tinkerpop\Itofinity.Gremlin.Tinkerpop.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Model\Domain\Organisation\Military\" />
+  </ItemGroup>
+
 </Project>

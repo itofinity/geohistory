@@ -2,7 +2,7 @@
   "profiles": {
     "Geohistory.Client.UI.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "storage list --type publication"
+      "commandLineArgs": "organisation unit new --name \"1st Derbyshire Yeomanry\" --size \"Regiment\" --publicationId \"abc\" --auditSessionId \"test-one\" --pageRange \"1\""
     }
   }
 }

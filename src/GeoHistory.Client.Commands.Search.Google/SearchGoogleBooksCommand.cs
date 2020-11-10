@@ -81,20 +81,15 @@ namespace UK.CO.GeoHistory.Client.Commands.Search.Google
                     {
                         var items = new List<IQuery>();
 
-                        var citation = new Citation(tuple.Item1.Name, 1, auditSessionId);
-                        items.Add(citation);
-
-                        var citationId = citation.Id;
-
-                        var publication = new Publication(tuple.Item1.Name, citationId, auditSessionId);
+                        var publication = new Publication(tuple.Item1.Name, auditSessionId);
                         items.Add(publication);
 
-                        var publisher = new Publisher(tuple.Item2.Name, citationId, auditSessionId);
+                        var publisher = new Publisher(tuple.Item2.Name, publication.Id, auditSessionId);
                         items.Add(publisher);
 
                         tuple.Item3.ToList().ForEach(a =>
                         {
-                            var author = new Person(a.Name, citationId, auditSessionId);
+                            var author = new Person(a.Name, publication.Id, auditSessionId);
                             items.Add(author);
                         });
 

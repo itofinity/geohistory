@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Geohistory.Client.Commands.Api\Geohistory.Client.Commands.Api.csproj" />
     <ProjectReference Include="..\GeoHistory.Client.Spi\GeoHistory.Client.Spi.csproj" />
     <ProjectReference Include="..\Itofinity.Gremlin.Tinkerpop\Itofinity.Gremlin.Tinkerpop.csproj" />
   </ItemGroup>

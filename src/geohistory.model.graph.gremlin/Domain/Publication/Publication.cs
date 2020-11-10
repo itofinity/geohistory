@@ -8,7 +8,7 @@ namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Publication
     {
         public const string Label = "publication";
 
-        public Publication(string title, string citationId, string auditSessionId) : base(title, Label, new Dictionary<string, object>(), citationId, auditSessionId)
+        public Publication(string title, string auditSessionId) : base(title, Label, new Dictionary<string, object>(), auditSessionId)
         {
         }
 

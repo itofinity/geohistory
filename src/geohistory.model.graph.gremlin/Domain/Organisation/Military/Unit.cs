@@ -6,7 +6,7 @@ namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Organisation.Mil
 {
     public class Unit : AbstractPropertyEntity
     {
-        public Unit(string title, string size, string citationId, string auditSessionId) : base(title, "unit", new Dictionary<string, object>() { { "size", size } }, citationId, auditSessionId)
+        public Unit(string title, string size, string publicationId, int startPage, int endPage, string auditSessionId) : base(title, "unit", new Dictionary<string, object>() { { "size", size } }, publicationId, startPage, endPage, auditSessionId)
         {
         }
     }

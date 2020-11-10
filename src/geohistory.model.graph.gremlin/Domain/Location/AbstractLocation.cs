@@ -8,11 +8,11 @@ namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Location
 {
     public abstract class AbstractLocation : AbstractPropertyEntity, ILocation
     {
-        protected AbstractLocation(string name, string type, string citationId, string auditSessionId) : base(name, type, new Dictionary<string, object>(), citationId, auditSessionId)
+        protected AbstractLocation(string name, string type, string publicationId, int startPage, int endPage, string auditSessionId) : base(name, type, new Dictionary<string, object>(), publicationId, startPage, endPage, auditSessionId)
         {
         }
 
-        protected AbstractLocation(string name, string type, Dictionary<string, object> properties, string citationId, string auditSessionId) : base(name, type, properties, citationId, auditSessionId)
+        protected AbstractLocation(string name, string type, Dictionary<string, object> properties, string publicationId, int startPage, int endPage, string auditSessionId) : base(name, type, properties, publicationId, startPage, endPage, auditSessionId)
         {
         }
     }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Itofinity.Geohistory.Spi.Domain;
 using Itofinity.Gremlin.Tinkerpop;
+using Microsoft.Extensions.Logging;
 using UK.CO.Itofinity.GeoHistory.Client.Spi.Service;
 using UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin;
 
@@ -16,6 +17,8 @@ namespace UK.CO.Itofinity.GeoHistory.Client.Api.Service
     [Export(typeof(IStorageService))]
     public class GremlinStorageService : IStorageService
     {
+        private ILogger<GremlinStorageService> logger;
+
         // Azure Cosmos DB Configuration variables
         // Replace the values in these variables to your own.
         private const string DEFAULT_HOSTNAME = "localhost";
@@ -24,16 +27,19 @@ namespace UK.CO.Itofinity.GeoHistory.Client.Api.Service
         private const string DEFAULT_DATABASE = "geohistory"; // avoid issues make everything lowercase
         private const string DEFAULT_COLLECTION = "container1"; // avoid issues make everything lowercase
 
-        public GremlinStorageService()
+        [ImportingConstructor]
+        public GremlinStorageService(ILoggerFactory loggerFactory)
         {
-            GremlinService = new GremlinService(DEFAULT_HOSTNAME, DEFAULT_PORT, DEFAULT_AUTHKEY, DEFAULT_DATABASE, DEFAULT_COLLECTION);
+            logger = loggerFactory.CreateLogger<GremlinStorageService>();
+            GremlinService = new GremlinService(DEFAULT_HOSTNAME, DEFAULT_PORT, DEFAULT_AUTHKEY, DEFAULT_DATABASE, DEFAULT_COLLECTION, loggerFactory);
         }
 
         public GremlinService GremlinService { get; }
 
         public async Task ClearAsync()
         {
-            var result = await GremlinService.RunQueries<dynamic>(GremlinService.DropScript);
+            var result = await GremlinService.RunQueries<dynamic>(GremlinService.DropScript.Where(s => s.Contains("E()")).ToList());
+            var result2 = await GremlinService.RunQueries<dynamic>(GremlinService.DropScript.Where(s => s.Contains("V()")).ToList());
         }
 
         public Task DeleteAsync(string type, string id)
@@ -61,7 +67,7 @@ namespace UK.CO.Itofinity.GeoHistory.Client.Api.Service
             }
             catch(Exception ex)
             {
-                System.Console.Out.WriteLine($"Insert [{item.ToInsertQueries()}] failed due to {ex.Message}");
+                logger.LogError($"Insert [{item.ToInsertQueries()}] failed due to {ex.Message}");
             }
         }
 

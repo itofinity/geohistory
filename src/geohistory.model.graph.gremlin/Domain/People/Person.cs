@@ -10,16 +10,16 @@ namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.People
     {
         public const string Label = "person";
 
-        public Person(string name, string citationId, string auditSessionId) : base(name, Label, new Dictionary<string, object>(), citationId, auditSessionId)
+        public Person(string name, string publicationId, string auditSessionId) : base(name, Label, new Dictionary<string, object>(), publicationId, auditSessionId)
         {
         }
 
-        public Person(string name, Dictionary<string, object> properties, string citationId, string auditSessionId) : base(name, Label, properties, citationId, auditSessionId)
+        public Person(string name, Dictionary<string, object> properties, string publicationId, int startPage, int endPage, string auditSessionId) : base(name, Label, properties, publicationId, startPage, endPage, auditSessionId)
         {
         }
 
-        public Person(string givenName, string familyName, List<char> initials, string email, string citationId, string auditSessionId) 
-            : base(BuildName(familyName, givenName, initials, email), Label, new Dictionary<string, object>() { { "givenName", givenName }, { "familyName", familyName }, { "initials", initials}, { "email", email } }, citationId, auditSessionId)
+        public Person(string givenName, string familyName, List<char> initials, string email, string publicationId, int startPage, int endPage, string auditSessionId) 
+            : base(BuildName(familyName, givenName, initials, email), Label, new Dictionary<string, object>() { { "givenName", givenName }, { "familyName", familyName }, { "initials", initials}, { "email", email } }, publicationId, startPage, endPage, auditSessionId)
         {
         }
 

@@ -1,6 +1,8 @@
-﻿namespace UK.CO.Itofinity.GeoHistory.Client.Commands.Gremlin
+﻿using Geohistory.Client.Commands.Api;
+
+namespace UK.CO.Itofinity.GeoHistory.Client.Commands.Gremlin
 {
-    internal interface IGremlinCommand
+    internal interface IGremlinCommand : ISubCommand
     {
     }
 }

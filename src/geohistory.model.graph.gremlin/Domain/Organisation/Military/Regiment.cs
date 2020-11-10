@@ -5,7 +5,7 @@ namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Organisation.Mil
 {
     public class Regiment : Unit
     {
-        public Regiment(string title, string citationId, string auditSessionId) : base(title, "regiment", citationId, auditSessionId)
+        public Regiment(string title, string publicationId, int startPage, int endPage, string auditSessionId) : base(title, "regiment", publicationId, startPage, endPage, auditSessionId)
         {
         }
     }

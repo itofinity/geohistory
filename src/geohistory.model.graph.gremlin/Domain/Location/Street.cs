@@ -2,7 +2,7 @@
 {
     public class Street : AbstractLocation
     {
-        public Street(string name, string citationId, string auditSessionId) : base(name, "street", citationId, auditSessionId)
+        public Street(string name, string publicationId, int startPage, int endPage, string auditSessionId) : base(name, "street", publicationId, startPage, endPage, auditSessionId)
         {
         }
     }

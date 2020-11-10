@@ -7,6 +7,7 @@ using System.CommandLine.Invocation;
 using System.ComponentModel.Composition;
 using System.IO;
 using Itofinity.Gremlin.Tinkerpop;
+using Microsoft.Extensions.Logging;
 
 namespace UK.CO.Itofinity.GeoHistory.Client.Commands.Gremlin
 {
@@ -24,11 +25,13 @@ namespace UK.CO.Itofinity.GeoHistory.Client.Commands.Gremlin
         private const string DEFAULT_AUTHKEY = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
         private const string DEFAULT_DATABASE = "geohistory"; // avoid issues make everything lowercase
         private const string DEFAULT_COLLECTION = "container1"; // avoid issues make everything lowercase
+        private ILogger<GremlinService> logger;
 
         [ImportingConstructor]
-        public GremlinImportCommand(IStorageService storageService) : base(NAME, DESCRIPTION)
+        public GremlinImportCommand(IStorageService storageService, ILoggerFactory loggerFactory) : base(NAME, DESCRIPTION)
         {
-            GremlinService = new GremlinService(DEFAULT_HOSTNAME, DEFAULT_PORT, DEFAULT_AUTHKEY, DEFAULT_DATABASE, DEFAULT_COLLECTION);
+            logger = loggerFactory.CreateLogger<GremlinService>();
+            GremlinService = new GremlinService(DEFAULT_HOSTNAME, DEFAULT_PORT, DEFAULT_AUTHKEY, DEFAULT_DATABASE, DEFAULT_COLLECTION, loggerFactory);
 
             this.Add(new Option<string>("--file"));
 

@@ -2,7 +2,7 @@
 {
     public class Country : AbstractLocation
     {
-        public Country(string name, string citationId, string auditSessionId) : base(name, "country", citationId, auditSessionId)
+        public Country(string name, string publicationId, int startPage, int endPage, string auditSessionId) : base(name, "country", publicationId, startPage, endPage, auditSessionId)
         {
         }
     }

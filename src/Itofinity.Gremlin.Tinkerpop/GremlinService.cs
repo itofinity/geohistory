@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Exceptions;
-using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Structure.IO.GraphSON;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -18,9 +18,11 @@ namespace Itofinity.Gremlin.Tinkerpop
     public class GremlinService
     {
         private IMapper mapper;
+        private ILogger logger;
 
-        public GremlinService(string hostname, int port, string authKey, string database, string collection)
+        public GremlinService(string hostname, int port, string authKey, string database, string collection, ILoggerFactory loggerFactory)
         {
+            logger = loggerFactory.CreateLogger<GremlinService>();
             this.Hostname = hostname;
             this.Port = port;
             this.AuthKey = authKey;
@@ -135,18 +137,17 @@ namespace Itofinity.Gremlin.Tinkerpop
             }
         }
 
-        private static void LogResultSet<T>(ResultSet<T> resultSet)
+        private void LogResultSet<T>(ResultSet<T> resultSet)
         {
             if (resultSet.Count > 0)
             {
-                System.Console.WriteLine("\tResult:");
+                logger.LogDebug("\tResult:");
                 foreach (var result in resultSet)
                 {
                     // The vertex results are formed as Dictionaries with a nested dictionary for their properties
                     string output = JsonConvert.SerializeObject(result);
-                    System.Console.WriteLine($"\t{output}");
+                    logger.LogDebug($"\t{output}");
                 }
-                System.Console.WriteLine();
             }
 
             // Print the status attributes for the result set.
@@ -154,7 +155,6 @@ namespace Itofinity.Gremlin.Tinkerpop
             //  x-ms-status-code            : This is the sub-status code which is specific to Cosmos DB.
             //  x-ms-total-request-charge   : The total request units charged for processing a request.
             PrintStatusAttributes(resultSet.StatusAttributes);
-            System.Console.WriteLine();
         }
 
         private Task<ResultSet<T>> SubmitRequest<T>(GremlinClient gremlinClient, string query)
@@ -165,10 +165,10 @@ namespace Itofinity.Gremlin.Tinkerpop
             }
             catch (ResponseException e)
             {
-                System.Console.WriteLine("\tRequest Error!");
+                logger.LogError("\tRequest Error!");
 
                 // Print the Gremlin status code.
-                System.Console.WriteLine($"\tStatusCode: {e.StatusCode}");
+                logger.LogError($"\tStatusCode: {e.StatusCode}");
 
                 // On error, ResponseException.StatusAttributes will include the common StatusAttributes for successful requests, as well as
                 // additional attributes for retry handling and diagnostics.
@@ -177,18 +177,18 @@ namespace Itofinity.Gremlin.Tinkerpop
                 //                              : attribute 'x-ms-status-code' returns 429.
                 //  x-ms-activity-id            : Represents a unique identifier for the operation. Commonly used for troubleshooting purposes.
                 PrintStatusAttributes(e.StatusAttributes);
-                System.Console.WriteLine($"\t[\"x-ms-retry-after-ms\"] : { GetValueAsString(e.StatusAttributes, "x-ms-retry-after-ms")}");
-                System.Console.WriteLine($"\t[\"x-ms-activity-id\"] : { GetValueAsString(e.StatusAttributes, "x-ms-activity-id")}");
+                logger.LogError($"\t[\"x-ms-retry-after-ms\"] : { GetValueAsString(e.StatusAttributes, "x-ms-retry-after-ms")}");
+                logger.LogError($"\t[\"x-ms-activity-id\"] : { GetValueAsString(e.StatusAttributes, "x-ms-activity-id")}");
 
                 throw;
             }
         }
 
-        private static void PrintStatusAttributes(IReadOnlyDictionary<string, object> attributes)
+        private void PrintStatusAttributes(IReadOnlyDictionary<string, object> attributes)
         {
-            System.Console.WriteLine($"\tStatusAttributes:");
-            System.Console.WriteLine($"\t[\"x-ms-status-code\"] : { GetValueAsString(attributes, "x-ms-status-code")}");
-            System.Console.WriteLine($"\t[\"x-ms-total-request-charge\"] : { GetValueAsString(attributes, "x-ms-total-request-charge")}");
+            logger.LogDebug($"\tStatusAttributes:");
+            logger.LogDebug($"\t[\"x-ms-status-code\"] : { GetValueAsString(attributes, "x-ms-status-code")}");
+            logger.LogDebug($"\t[\"x-ms-total-request-charge\"] : { GetValueAsString(attributes, "x-ms-total-request-charge")}");
         }
 
         private static string GetValueAsString(IReadOnlyDictionary<string, object> dictionary, string key)

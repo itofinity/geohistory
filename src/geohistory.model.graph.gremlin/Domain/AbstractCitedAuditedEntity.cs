@@ -7,21 +7,45 @@ namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain
 {
     public abstract class AbstractCitedAuditedEntity : AbstractIdentifiableEntity
     {
-        protected AbstractCitedAuditedEntity(string name, string type, string citationId, string auditSessionId) : base(name, type)
+        /// <summary>
+        /// Special constructor for use by Publications, to Cite themselves
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="type"></param>
+        /// <param name="auditSessionId"></param>
+        protected AbstractCitedAuditedEntity(string name, string type, string auditSessionId) : base(name, type)
         {
-            if(!"citation".Equals(type.ToLower()))
-            {
-                CitationId = citationId ?? throw new ArgumentNullException(nameof(citationId));
-            }
-            else
-            {
-                CitationId = Id;
-            }
-            
+            PublicationId = this.Id;
+            StartPage = 0;
+            EndPage = 0;
             AuditSessionId = auditSessionId ?? throw new ArgumentNullException(nameof(auditSessionId));
         }
 
-        public string CitationId { get; }
+        /// <summary>
+        /// Special constructor for use by Publishers, to Cite themselves
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="type"></param>
+        /// <param name="auditSessionId"></param>
+        protected AbstractCitedAuditedEntity(string name, string type, string publicationId, string auditSessionId) : base(name, type)
+        {
+            PublicationId = publicationId ?? throw new ArgumentNullException(nameof(publicationId));
+            StartPage = 0;
+            EndPage = 0;
+            AuditSessionId = auditSessionId ?? throw new ArgumentNullException(nameof(auditSessionId));
+        }
+
+        protected AbstractCitedAuditedEntity(string name, string type, string publicationId, int startPage, int endPage, string auditSessionId) : base(name, type)
+        {
+            PublicationId = publicationId ?? throw new ArgumentNullException(nameof(publicationId));
+            StartPage = startPage;
+            EndPage = endPage;
+            AuditSessionId = auditSessionId ?? throw new ArgumentNullException(nameof(auditSessionId));
+        }
+
+        public string PublicationId { get; }
+        public int StartPage { get; }
+        public int EndPage { get; }
         public string AuditSessionId { get; }
 
         public override List<string> ToInsertQueries()
@@ -36,13 +60,8 @@ namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain
         protected List<string> InitEntries()
         {
             var entries = new List<string>();
-            if (!String.IsNullOrWhiteSpace(CitationId))
-            {
-                // catches the special case of Citations themselves being a AbstractCitedAuditedEntity
-                entries.AddRange(new Cited(CitationId, Id, AuditSessionId).ToInsertQueries());
-                entries.AddRange(new HasCitation(Id, CitationId, AuditSessionId).ToInsertQueries());
-            }
-
+            entries.AddRange(new Cited(PublicationId, StartPage, EndPage, Id, AuditSessionId).ToInsertQueries());
+            entries.AddRange(new IsCited(Id, PublicationId, StartPage, EndPage, AuditSessionId).ToInsertQueries());
             entries.AddRange(new AuditedBy(Id, AuditSessionId).ToInsertQueries());
             entries.AddRange(new Audits(AuditSessionId, Id).ToInsertQueries());
             return entries;

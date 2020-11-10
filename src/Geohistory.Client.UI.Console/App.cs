@@ -5,7 +5,7 @@ using System.CommandLine.Invocation;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.Linq;
-using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace UK.CO.Itofinity.GeoHistory.Client.UI.Cli
 {
@@ -13,6 +13,22 @@ namespace UK.CO.Itofinity.GeoHistory.Client.UI.Cli
     {
         [ImportMany]
         public IEnumerable<ICommand> Commands;
+
+        [Export(typeof(ILoggerFactory))]
+        public ILoggerFactory LoggerFactoryToInject 
+        { 
+            get 
+            { 
+                return LoggerFactory.Create(builder =>
+                {
+                    builder
+                        .AddFilter("Microsoft", LogLevel.Warning)
+                        .AddFilter("System", LogLevel.Warning)
+                        .AddFilter("LoggingConsoleApp.Program", LogLevel.Debug)
+                        .AddConsole();
+                });
+            }
+            private set { } }
 
         private CompositionContainer _container;
 
@@ -50,6 +66,8 @@ namespace UK.CO.Itofinity.GeoHistory.Client.UI.Cli
 
             //We create the CompositionContainer with the parts in the catalog.
             _container = new CompositionContainer(catalog);
+
+            //_container.ComposeExportedValue<ILoggerFactory>(CreateLoggerFactory());
 
             try
             {

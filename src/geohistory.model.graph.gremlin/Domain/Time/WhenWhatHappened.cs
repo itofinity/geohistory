@@ -4,7 +4,7 @@ namespace UK.CO.Itofinity.GeoHistory.Model.Graph.Gremlin.Domain.Time
 {
     public class WhenWhatHappened : Relationship
     {
-        public WhenWhatHappened(string whenId, string whatId, string citationId, string auditSessionId) : base(whenId, "dateof", whatId, citationId, auditSessionId)
+        public WhenWhatHappened(string whenId, string whatId, string publicationId, int startPage, int endPage, string auditSessionId) : base(whenId, "dateof", whatId, publicationId, startPage, endPage, auditSessionId)
         {
         }
     }
