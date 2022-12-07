@@ -18,7 +18,7 @@ namespace Uk.Co.Itofinity.GeoHistory.SpikeOne
 
         private static IEnumerable<RenderEntry> Extend(List<Entry> entries, string mapsApiKey)
         {
-            var geo = new GeoLocationService(mapsApiKey);
+            var geo = new CachingGeoLocationService(mapsApiKey);
 
             return entries
                     .Select(e =>

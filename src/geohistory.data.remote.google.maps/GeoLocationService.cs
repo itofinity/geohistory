@@ -10,7 +10,7 @@ using Uk.Co.Itofinity.GeoHistory.Model.Location;
 
 namespace Uk.Co.Itofinity.GeoHistory.Data.Remote.Google.Maps
 {
-    public class GeoLocationService
+    public class GeoLocationService : IGeoLocationService
     {
         private readonly string apikey;
         private Dictionary<string, object> cache = new Dictionary<string, object>();
