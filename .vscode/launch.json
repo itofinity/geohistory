@@ -16,6 +16,17 @@
             "stopAtEntry": false
         },
         {
+            "name": "SpikeOne --approach memory",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/spike-one/bin/Debug/netcoreapp6.0/GeoHistory.SpikeOne.exe",
+            "args": ["--approach", "memory", "--apikey", "${env:GOOGLE_MAPS_APIKEY}"],
+            "cwd": "${workspaceFolder}/src/spike-one",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
             "name": ".NET Core Attach",
             "type": "coreclr",
             "request": "attach",

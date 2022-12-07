@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netcoreapp6.0</TargetFramework>
     <RootNamespace>Uk.Co.Itofinity.GeoHistory.SpikeOne</RootNamespace>
     <AssemblyName>GeoHistory.SpikeOne</AssemblyName>
   </PropertyGroup>
